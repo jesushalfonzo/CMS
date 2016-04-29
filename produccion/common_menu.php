@@ -8,7 +8,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="<?=$serveractual?>/produccion/images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
@@ -29,7 +29,7 @@
                   <li><a><i class="fa fa-group"></i> Clientes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <?php if (control_access("CLIENTES", 'AGREGAR')) { ?>
-                      <li><a href="index.html"><i class="fa fa-plus-square-o"></i>Agregar</a>
+                      <li><a href="<?=$serveractual?>/produccion/clientes/index.php"><i class="fa fa-plus-square-o"></i>Agregar</a>
                       </li>
                       <?php } ?>
                       <?php if (control_access("CLIENTES", 'VER')) { ?>

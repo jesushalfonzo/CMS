@@ -3,7 +3,7 @@ session_start();
 ini_set('session.gc_maxlifetime',7200);
 if (isset($_SESSION["AMARILLASw3b"])){$variable=$_SESSION["AMARILLASw3b"];}else{$variable="";}  
 if ($variable == '4m4r1ll4as0F3rtas'){
-  echo "<script language='JavaScript'>document.location.href='index2.html';</script>";
+  echo "<script language='JavaScript'>document.location.href='index2.php';</script>";
   exit();
 } 
 if (isset($_GET["ckl"])){$error=$_GET["ckl"]; }

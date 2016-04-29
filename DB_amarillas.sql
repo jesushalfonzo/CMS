@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-04-2016 a las 10:08:49
+-- Tiempo de generación: 29-04-2016 a las 16:45:04
 -- Versión del servidor: 5.5.38-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bitacora_acceso` (
   `b_acceso_ip` varchar(200) NOT NULL,
   `b_acceso_fecha` datetime NOT NULL,
   PRIMARY KEY (`b_acceso_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Volcado de datos para la tabla `bitacora_acceso`
@@ -74,7 +74,8 @@ INSERT INTO `bitacora_acceso` (`b_acceso_id`, `b_acceso_usuario`, `b_acceso_acci
 (32, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:01:59'),
 (33, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:03:37'),
 (34, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:06:03'),
-(35, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-29 09:26:29');
+(35, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-29 09:26:29'),
+(36, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-29 14:27:55');
 
 -- --------------------------------------------------------
 
@@ -98,6 +99,25 @@ INSERT INTO `m_acciones` (`m_acciones_id`, `m_acciones_nombre`, `m_acciones_desc
 (2, 'Ver', 'Para listar'),
 (3, 'Editar', 'Permite hacer ediciones'),
 (4, 'Eliminar', 'Permite eliminar de la base de datos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `m_clientes`
+--
+
+CREATE TABLE IF NOT EXISTS `m_clientes` (
+  `m_cliente_id` int(11) NOT NULL AUTO_INCREMENT,
+  `m_cliente_razonSocial` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_rif` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_telefono` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_nombreContacto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_telefonoContacto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `m_cliente_estatus` int(11) NOT NULL,
+  `m_cliente_verificado` int(11) NOT NULL,
+  PRIMARY KEY (`m_cliente_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
