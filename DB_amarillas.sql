@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-04-2016 a las 17:10:22
+-- Tiempo de generación: 29-04-2016 a las 10:08:49
 -- Versión del servidor: 5.5.38-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bitacora_acceso` (
   `b_acceso_ip` varchar(200) NOT NULL,
   `b_acceso_fecha` datetime NOT NULL,
   PRIMARY KEY (`b_acceso_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Volcado de datos para la tabla `bitacora_acceso`
@@ -73,7 +73,8 @@ INSERT INTO `bitacora_acceso` (`b_acceso_id`, `b_acceso_usuario`, `b_acceso_acci
 (31, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 16:46:52'),
 (32, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:01:59'),
 (33, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:03:37'),
-(34, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:06:03');
+(34, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-28 17:06:03'),
+(35, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-04-29 09:26:29');
 
 -- --------------------------------------------------------
 
@@ -101,6 +102,27 @@ INSERT INTO `m_acciones` (`m_acciones_id`, `m_acciones_nombre`, `m_acciones_desc
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `m_grupo`
+--
+
+CREATE TABLE IF NOT EXISTS `m_grupo` (
+  `m_grupo_id` int(4) NOT NULL AUTO_INCREMENT,
+  `m_grupo_nombre` varchar(100) NOT NULL,
+  `m_grupo_descripcion` varchar(255) NOT NULL,
+  `m_grupo_status` varchar(3) NOT NULL,
+  PRIMARY KEY (`m_grupo_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `m_grupo`
+--
+
+INSERT INTO `m_grupo` (`m_grupo_id`, `m_grupo_nombre`, `m_grupo_descripcion`, `m_grupo_status`) VALUES
+(1, 'Super Admin', 'El super administrador del sistema, para privilegios de administración de modulos', 'A');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `m_permiso`
 --
 
@@ -110,7 +132,10 @@ CREATE TABLE IF NOT EXISTS `m_permiso` (
   `m_seccion_id` int(4) NOT NULL,
   `m_accion_id` int(100) NOT NULL,
   `m_permiso_status` varchar(2) NOT NULL,
-  PRIMARY KEY (`m_permiso_id`)
+  PRIMARY KEY (`m_permiso_id`),
+  KEY `grupoid` (`m_grupo_id`),
+  KEY `accionid` (`m_accion_id`),
+  KEY `seccionid` (`m_seccion_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
@@ -130,10 +155,10 @@ INSERT INTO `m_permiso` (`m_permiso_id`, `m_grupo_id`, `m_seccion_id`, `m_accion
 
 CREATE TABLE IF NOT EXISTS `m_seccion` (
   `m_seccion_id` int(4) NOT NULL AUTO_INCREMENT,
-  `m_seccion_nombre` varchar(100) NOT NULL,
-  `m_seccion_descripcion` varchar(255) NOT NULL,
+  `m_seccion_nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `m_seccion_descripcion` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`m_seccion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `m_seccion`
@@ -150,14 +175,15 @@ INSERT INTO `m_seccion` (`m_seccion_id`, `m_seccion_nombre`, `m_seccion_descripc
 
 CREATE TABLE IF NOT EXISTS `m_usuario` (
   `m_usuario_id` int(4) NOT NULL AUTO_INCREMENT,
-  `m_usuario_login` varchar(20) NOT NULL,
-  `m_usuario_password` longtext NOT NULL,
-  `m_usuario_nombre` varchar(50) NOT NULL,
-  `m_usuario_apellido` varchar(100) NOT NULL,
+  `m_usuario_login` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `m_usuario_password` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `m_usuario_nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `m_usuario_apellido` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `m_grupo_id` int(4) NOT NULL,
-  `m_usuario_status` varchar(3) NOT NULL,
-  `m_usuario_correo` varchar(255) NOT NULL,
-  PRIMARY KEY (`m_usuario_id`)
+  `m_usuario_status` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `m_usuario_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`m_usuario_id`),
+  KEY `idgrupo` (`m_grupo_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -166,6 +192,24 @@ CREATE TABLE IF NOT EXISTS `m_usuario` (
 
 INSERT INTO `m_usuario` (`m_usuario_id`, `m_usuario_login`, `m_usuario_password`, `m_usuario_nombre`, `m_usuario_apellido`, `m_grupo_id`, `m_usuario_status`, `m_usuario_correo`) VALUES
 (1, 'jalfonzo', 'a35400f5d75488e299037db1895d2ee8', 'Jesús', 'Alfonzo', 1, 'A', 'jesushalfonzo@gmail.com');
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `m_permiso`
+--
+ALTER TABLE `m_permiso`
+  ADD CONSTRAINT `seccionid` FOREIGN KEY (`m_seccion_id`) REFERENCES `m_seccion` (`m_seccion_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `accionid` FOREIGN KEY (`m_accion_id`) REFERENCES `m_acciones` (`m_acciones_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `grupoid` FOREIGN KEY (`m_grupo_id`) REFERENCES `m_grupo` (`m_grupo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `m_usuario`
+--
+ALTER TABLE `m_usuario`
+  ADD CONSTRAINT `idgrupo` FOREIGN KEY (`m_grupo_id`) REFERENCES `m_grupo` (`m_grupo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
