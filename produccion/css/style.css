@@ -318,3 +318,6 @@ input[type="submit"]:hover {
   }
   
 }
+.success{
+  color: #027C05 !important;
+}

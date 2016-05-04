@@ -33,7 +33,7 @@
                       </li>
                       <?php } ?>
                       <?php if (control_access("CLIENTES", 'VER')) { ?>
-                      <li><a href="index2.html"><i class="fa fa-database"></i>Listar</a>
+                      <li><a href="<?=$serveractual?>/produccion/clientes/listar.php"><i class="fa fa-database"></i>Listar</a>
                       </li>
                       <?php } ?>
                     </ul>

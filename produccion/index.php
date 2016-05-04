@@ -55,7 +55,7 @@ if ($error!=""){ $display="block"; } else { $display="none";}
           dataType: "json",
           success: function (data) {
            if (data['success']) {
-            $($("#mensajes").html("").fadeIn("slow"));
+            $("#mensajes").addClass("success");
             $('#mensajes').append(data['data']['message']);
             setTimeout(" window.location.href = 'index2.php';", 500);
           } else{

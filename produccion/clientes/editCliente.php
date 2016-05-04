@@ -1,6 +1,29 @@
 <?php include('../logeo.php'); 
 include('../extras/conexion.php');
 $link=Conectarse();
+
+
+if (!control_access("CLIENTES", 'EDITAR')){ echo "<script language='JavaScript'>document.location.href='../index.php';</script>"; }
+if((isset($_GET["idCliente"]))&&($_GET["idCliente"]!="")){ $idCliente=strip_tags(htmlentities($_GET["idCliente"])); } else {echo "<script language='JavaScript'>document.location.href='../index.php';</script>";}
+
+
+
+
+$SQL="SELECT * FROM m_clientes WHERE m_cliente_id='$idCliente'";
+$queryCliente=mysqli_query($link, $SQL);
+$row=mysqli_fetch_array($queryCliente);
+$m_cliente_razonSocial=$row["m_cliente_razonSocial"];
+$m_cliente_rif=$row["m_cliente_rif"];
+$m_cliente_mail=$row["m_cliente_mail"];
+$m_cliente_telefono=$row["m_cliente_telefono"];
+$m_cliente_nombreContacto=$row["m_cliente_nombreContacto"];
+$m_cliente_telefonoContacto=$row["m_cliente_telefonoContacto"];
+$m_cliente_login=$row["m_cliente_login"];
+$m_cliente_password=$row["m_cliente_password"];
+$m_cliente_estatus=$row["m_cliente_estatus"];
+$m_cliente_verificado=$row["m_cliente_verificado"];
+$m_cliente_fecharegistro=$row["m_cliente_fecharegistro"];
+
 ?>
 
 <!DOCTYPE html>
@@ -58,46 +81,46 @@ $link=Conectarse();
 
                   <br />
                   <form class="form-horizontal form-label-left" data-parsley-validate id="formClientes" name="formClientes">
-
+                    <input type="hidden" value="<?=$idCliente?>" name="idCliente" />
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                       <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      <input type="text" name="razonSocial" class="form-control has-feedback-left" id="razonSocial" placeholder="Razón Social">
+                      <input type="text" name="razonSocial" class="form-control has-feedback-left" id="razonSocial" placeholder="Razón Social" value="<?=$m_cliente_razonSocial?>">
                       
                     </div>
 
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                      <span class="fa fa-building form-control-feedback right" aria-hidden="true"></span>
-                     <input type="text" class="form-control" name="rifCliente" id="rifCliente" placeholder="RIF">
+                     <input type="text" class="form-control" name="rifCliente" id="rifCliente" placeholder="RIF" value="<?=$m_cliente_rif?>" >
                      
                    </div>
 
                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="emailCliente" id="emailCliente" placeholder="Email">
+                    <input type="text" class="form-control has-feedback-left" name="emailCliente" id="emailCliente" placeholder="Email" value="<?=$m_cliente_mail?>">
 
                   </div>
 
                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                    <input type="text" class="form-control numeric" name="telefonoCliente" id="telefonoCliente" placeholder="Teléfono">
+                    <input type="text" class="form-control numeric" name="telefonoCliente" id="telefonoCliente" placeholder="Teléfono" value="<?=$m_cliente_telefono?>">
 
                   </div>
 
                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-male form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="nombreContacto" id="nombreContacto" placeholder="Nombre de Contácto">
+                    <input type="text" class="form-control has-feedback-left" name="nombreContacto" id="nombreContacto" placeholder="Nombre de Contácto" value="<?=$m_cliente_nombreContacto?>">
 
                   </div>
 
                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                    <input type="text" class="form-control numeric" name="telefonoContacto" id="telefonoContacto" placeholder="Teléfono de Contacto">
+                    <input type="text" class="form-control numeric" name="telefonoContacto" id="telefonoContacto" placeholder="Teléfono de Contacto" value="<?=$m_cliente_telefonoContacto?>">
 
                   </div>
 
                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="loginCliente" id="loginCliente" placeholder="Login">
+                    <input type="text" class="form-control has-feedback-left" name="loginCliente" id="loginCliente" placeholder="Login" readonly="readonly" value="<?=$m_cliente_login?>">
 
                   </div>
 
@@ -117,16 +140,16 @@ $link=Conectarse();
                     <label for="message">Estatus Cliente :</label>
                     <div class="radio" id="EstatusRadio">
 
-                     <input type="checkbox" class="js-switch" id="estatus" name="estatus" value="1"/>  
-                     <label id="estatusText" for="estatus">Inactivo</label>
+                     <input type="checkbox" class="js-switch" id="estatus" name="estatus" value="1" <?php if($m_cliente_estatus){ echo "checked='checked'"; } ?>/>  
+                     <label id="estatusText" for="estatus"><?php if($m_cliente_estatus){ echo "Activo"; } else{ echo "Inactivo"; }?></label>
                    </div>
                  </div>
                  <div class="col-md-6 col-sm-6 col-xs-12">
                   <label for="message">Verificación de Cliente</label>
                   <div class="" id="Estatusverificado">
 
-                    <input type="checkbox" id="verificacion" class="js-switch" name="verificacion" value="1"/> 
-                    <label id="verificadoText" for="verificacion">Sin verificar</label>
+                    <input type="checkbox" id="verificacion" class="js-switch" name="verificacion" value="1" <?php if($m_cliente_verificado){ echo "checked='checked'"; } ?>/> 
+                    <label id="verificadoText" for="verificacion"><?php if($m_cliente_verificado){ echo "Verificado"; } else{ echo "Sin Verificar"; }?></label>
                   </div>
                 </div>
               </div>
@@ -135,7 +158,7 @@ $link=Conectarse();
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary" >Cancelar</button>
+                  <button type="submit" class="btn btn-primary" onClick="document.location.href='listar.php'">Cancelar</button>
                   <button type="submit" class="btn btn-success" id="btn_enviar">Guardar</button>
                 </div>
               </div>
@@ -213,7 +236,6 @@ $(function() {
         email: true
       },
       loginCliente: "required",
-      passwordContacto: "required",
       telefonoCliente: {
         required: true,
         minlength: 14,
@@ -231,7 +253,6 @@ $(function() {
       razonSocial: "Debe especificar la Razón Social del Cliente",
       rifCliente: "Debe especificar el RIF",
       loginCliente: "El usuario debe tener un login",
-      passwordContacto:"Debe asignarle una contraseña al usuario",
       emailCliente: "Se requiere un Email válido",
       telefonoCliente: {
         required: "Debe introducir un número telefónico",
@@ -250,7 +271,7 @@ $(function() {
     submitHandler: function(form) {
       var formData = new FormData($("#formClientes")[0]);
       $.ajax({
-        url: "addCliente.php",
+        url: "modifyCliente.php",
         type: 'POST',
         enctype: 'multipart/form-data',
         data: formData,
@@ -265,8 +286,9 @@ $(function() {
           setTimeout(function() { window.location.href = 'listar.php';}, 1000);
         } else{
           $("#mensajes").css("z-index", "999");
+          $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
           $.each(data['data']['message'], function(index, val) {
-            $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
+            
             $('#dataMessage').append(val+ '<br>');
           });
           setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
@@ -275,14 +297,9 @@ $(function() {
         };
 
       },
-      error: function(data) {
-       $("#mensajes").css("z-index", "999");
-       $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-       $.each(data['data']['message'], function(index, val) {
-        $('#dataMessage').append(val+ '<br>');
-      });
-       setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-     },
+      error: function (request, status, error) {
+        alert(request.responseText);
+    },
      cache: false,
      contentType: false,
      processData: false
