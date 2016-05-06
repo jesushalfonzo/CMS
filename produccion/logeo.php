@@ -22,7 +22,7 @@ function curPageURL() {
 
 
 if ($variable != '4m4r1ll4as0F3rtas'){
-	echo "<script language='JavaScript'>parent.location.href='".$serveractual."/produccionindex.php';</script>";
+	echo "<script language='JavaScript'>parent.location.href='".$serveractual."/produccion/index.php';</script>";
 }
 else{  
 	$loginusuario=$_SESSION['usuarioL0g3ad0'];

@@ -53,7 +53,7 @@ $m_cliente_fecharegistro=$row["m_cliente_fecharegistro"];
 
           <div class="page-title">
             <div class="title_left">
-              <h3>Registro de Clientes</h3>
+              <h3>Editar datos de Clientes</h3>
             </div>
             
           </div>

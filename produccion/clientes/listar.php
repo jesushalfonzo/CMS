@@ -7,6 +7,23 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
 <html lang="en">
 <head>
   <?php include("../common_head.php"); ?>
+
+  <style>
+  .suggest-element {
+    margin-left:5px;
+    margin-top:5px;
+    width:350px;
+    cursor:pointer;
+  }
+  #suggestions {
+    width:350px;
+    height:150px;
+    overflow: auto;
+    z-index: 999;
+    background-color: #FFFFFF;
+    display: none;
+  }
+  </style>
 </head>
 
 <body class="nav-md">
@@ -32,11 +49,13 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
             <div class="title_right">
               <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
+                  <input type="text" class="form-control" name="buscador" id="buscador" placeholder="Buscar...">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <button class="btn btn-default" type="button">Ir!</button>
+                    
                   </span>
                 </div>
+                <div id="suggestions" style="width:20%; z-index:3; overflow: hidden; float: center;  position: fixed; margin-top:0px; border-left-width: 1em;" ></div>
               </div>
             </div>
           </div>
@@ -49,33 +68,18 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
 
                   <div class="row">
 
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-                      <ul class="pagination pagination-split">
-                        <li><a href="#">A</a>
-                        </li>
-                        <li><a href="#">B</a>
-                        </li>
-                        <li><a href="#">C</a>
-                        </li>
-                        <li><a href="#">D</a>
-                        </li>
-                        <li><a href="#">E</a>
-                        </li>
-                        <li>...</li>
-                        <li><a href="#">W</a>
-                        </li>
-                        <li><a href="#">X</a>
-                        </li>
-                        <li><a href="#">Y</a>
-                        </li>
-                        <li><a href="#">Z</a>
-                        </li>
-                      </ul>
-                    </div>
                     <div class="clearfix"></div>
 
                     <?php
-                    $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_estatus='1' ORDER BY m_cliente_razonSocial ASC LIMIT 0,9";
+                    if((isset($_GET["idCliente"]))&&($_GET["idCliente"]!="")){ 
+
+                    $idCliente=strip_tags(htmlentities(mysqli_real_escape_string($link, $_GET["idCliente"]))); 
+                     $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_id='$idCliente' ORDER BY m_cliente_razonSocial ASC LIMIT 0,1";
+                  } 
+                  else{
+                     $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_estatus='1' ORDER BY m_cliente_razonSocial ASC LIMIT 0,9";
+                  }
+                   
                     $query=mysqli_query($link, $QueryClientes);
                     if (mysqli_num_rows($query) ==0) {
                       echo "NO EXISTEN CLIENTES REGISTRADOS";
@@ -138,7 +142,7 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                               </i> Editar</button>
                               <?php } ?>
                               <?php if (control_access("CLIENTES", 'VER')) { ?> 
-                              <button type="button" class="btn btn-primary btn-xs ">
+                              <button type="button" class="btn btn-primary btn-xs viendo" data-id="<?=$m_cliente_id?>">
                                 <i class="fa fa-user"> </i> Ver Perfil
                               </button>
                               <?php } ?>
@@ -216,6 +220,7 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
        cache: false,
        contentType: false,
        processData: false
+       
      });
 
 
@@ -223,10 +228,52 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
 
 $(".editando").click(function (e) {
   var idEditar=$(this).data('id');
+
   window.location.href = 'editCliente.php?idCliente='+idEditar;
 });
 
+$(".viendo").click(function (e) {
+  var idVer=$(this).data('id');
+  window.location.href = 'verCliente.php?idCliente='+idVer;
+});
 
+
+</script>
+
+
+
+<script type="text/javascript">
+//BUSCADOR AUTOCOMPLETE
+$(document).ready(function() {    
+    //Al escribr dentro del input con id="buscador"
+    $('#buscador').keypress(function(){
+        //Obtenemos el value del input
+        var token = $(this).val();       
+        console.log(token); 
+        var dataString = 'token='+token;
+
+        //Le pasamos el valor del input al ajax
+        $.ajax({
+          type: "POST",
+          url: "autocomplete.php",
+          data: dataString,
+          success: function(data) {
+                //Escribimos las sugerencias que nos manda la consulta
+                $('#suggestions').fadeIn(1000).html(data);
+                //Al hacer click en algua de las sugerencias
+                $('.suggest-element').on('click', function(){
+
+                  var idCliente=$(this).data('id');
+                    //Editamos el valor del input con data de la sugerencia pulsada
+                    $('#buscador').val($(this).data('razon'));
+                    //Hacemos desaparecer el resto de sugerencias
+                    $('#suggestions').fadeOut(1000);
+                    document.location.href="listar.php?idCliente="+idCliente;
+                  });              
+              }
+            });
+      });              
+});    
 </script>
 </body>
 </html>
