@@ -109,8 +109,8 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                                 <ul class="list-unstyled">
                                   <li><i class="fa fa-phone"></i> <?=$m_cliente_telefono?> </li>
                                   <li><i class="fa fa-mobile-phone"></i> <?=$m_cliente_telefonoContacto?> </li>
-                                  <li><i class="fa fa-envelope-o"></i><?=$m_cliente_mail?> </li>
-
+                                  <li><i class="fa fa-envelope-o"></i> <?=$m_cliente_mail?> </li>
+                                  <div></div>
                                 </ul>
                               </div>
                               <div class="right col-xs-5 text-center">
@@ -120,11 +120,11 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                                 <?php
                                 if ($m_cliente_verificado) {
                                  ?>
-                                 <button type="button" class="btn btn-success btn-xs" title="Cliente Verificado"> <i class="fa fa-check-square"></i></button>
+                                 <button type="button" class="btn btn-success btn-xs" title="Cliente Verificado" style="padding-bottom:16px;"> <i class="fa fa-check-square"></i></button>
                                  <?php
                                } else {
                                  ?>
-                                 <button type="button" class="btn btn-warning btn-xs" title="Cliente Sin Verificar"> <i class="fa fa-clock-o"></i></button>
+                                 <button type="button" class="btn btn-warning btn-xs" title="Cliente Sin Verificar" style="padding-bottom:16px;"> <i class="fa fa-clock-o"></i></button>
                                  <?php
                                }
 
