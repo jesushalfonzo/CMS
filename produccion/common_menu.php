@@ -40,6 +40,22 @@
                   </li>
                   <?php } ?>
 
+                   <?php if (control_access("CATEGORIAS", 'VER')) { ?>
+                
+                  <li><a><i class="fa fa-tasks"></i> Categorías  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <?php if (control_access("CATEGORIAS", 'AGREGAR')) { ?>
+                      <li><a href="<?=$serveractual?>/produccion/categorias/index.php"><i class="fa fa-plus-square-o"></i>Agregar</a>
+                      </li>
+                      <?php } ?>
+                      <?php if (control_access("CATEGORIAS", 'VER')) { ?>
+                      <li><a href="<?=$serveractual?>/produccion/categorias/listar.php"><i class="fa fa-database"></i>Listar</a>
+                      </li>
+                      <?php } ?>
+                    </ul>
+                  </li>
+                  <?php } ?>
+
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a>

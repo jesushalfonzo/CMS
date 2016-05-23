@@ -31,7 +31,7 @@ else{
 	$permisosAdmin=$_SESSION["R0l3sp3rM1s0s"];
 }
 
-
+//print_r($permisosAdmin);
 //CLASES PARA EL MANEJO DE LOS ROLES
 // Obtain The Key Of The Array
 
