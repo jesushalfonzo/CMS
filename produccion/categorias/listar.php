@@ -117,89 +117,90 @@ $link=Conectarse();
                             $color="warning";
                           }
                           
-                        }
-                        ?>
-                        <tr class="even pointer">
-                          <td class="a-center ">
-                            <input type="checkbox" class="flat" name="table_records">
-                          </td>
-                          <td class=" "><?=$m_categoria_nombre?></td>
-                          <td class=" "><?=$m_categoria_descripcion?> </td>
-                          <td class=" ">0 </td>
-                          <td class=" "><button type="button" class="btn btn-<?=$color?>"><?=$m_categoria_estatus?></button></td>
-                          <td class=" ">
 
-                            <?php if (control_access("CATEGORIAS", 'EDITAR')) { ?>
-                            <button type="button" title="Editar Categoría" class="btn btn-default btn-xs EDITANDO" data-id="<?=$m_categoria_id?>"> <i class="fa fa-edit"></i></button>
-                            <?php } ?>
+                          ?>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" "><?=$m_categoria_nombre?></td>
+                            <td class=" "><?=$m_categoria_descripcion?> </td>
+                            <td class=" ">0 </td>
+                            <td class=" "><button type="button" class="btn btn-<?=$color?>"><?=$m_categoria_estatus?></button></td>
+                            <td class=" ">
 
-                            <?php if (control_access("CATEGORIAS", 'ELIMINAR')) { ?>
-                            <button type="button" class="btn btn-default btn-xs" data-id="<?=$m_categoria_id?>" data-accion="<?=$nextStatus?>" data-title="Seguro que desea <?=$text?>?" data-trigger="focus" data-on-confirm="changeStatus" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="<?=$text?>?"> <i class="fa fa-<?=$icon?>"></i></button>
-                            <?php } ?>
+                              <?php if (control_access("CATEGORIAS", 'EDITAR')) { ?>
+                              <button type="button" title="Editar Categoría" class="btn btn-default btn-xs EDITANDO" data-id="<?=$m_categoria_id?>"> <i class="fa fa-edit"></i></button>
+                              <?php } ?>
 
-                          </td>
+                              <?php if (control_access("CATEGORIAS", 'ELIMINAR')) { ?>
+                              <button type="button" class="btn btn-default btn-xs" data-id="<?=$m_categoria_id?>" data-accion="<?=$nextStatus?>" data-title="Seguro que desea <?=$text?>?" data-trigger="focus" data-on-confirm="changeStatus" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="<?=$text?>?"> <i class="fa fa-<?=$icon?>"></i></button>
+                              <?php } ?>
 
-                        </tr>
-                        
+                            </td>
 
-                      </tbody>
-                    </table>
+                          </tr>
+
+                          <?php } ?>
+
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <?php include("../common_footer.php"); ?>
+        <!-- /footer content -->
       </div>
-      <!-- /page content -->
-
-      <!-- footer content -->
-      <?php include("../common_footer.php"); ?>
-      <!-- /footer content -->
     </div>
-  </div>
-  <?php include("../common_libraries.php"); ?>
-</body>
-<script src="../js/bootstrap-confirmation.min.js"></script>
-<script>
+    <?php include("../common_libraries.php"); ?>
+  </body>
+  <script src="../js/bootstrap-confirmation.min.js"></script>
+  <script>
 
-$('[data-toggle=confirmation]').confirmation();
+  $('[data-toggle=confirmation]').confirmation();
 
-function deleteCategory(){
+  function deleteCategory(){
 
-  var id = $(this).data('id');
+    var id = $(this).data('id');
 
-  $.ajax({
-    url: "deleteCategory.php",
-    type: 'GET',
-    enctype: 'multipart/form-data',
-    data: "idCategory="+id,
-    async: false,
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      if (data['success']) {
-        $( "#Cliente"+id  ).slideUp();
-        $("#mensajes").css("z-index", "999");
-        $($("#mensajes").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-        $('#dataMessage').append(data['data']['message']);
-        setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-      }
-      else{
-        $("#mensajes").css("z-index", "999");
-        $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-        $('#dataMessage').append(data['data']['message']);
-        setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-      }
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-      alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-    } ,
-    cache: false,
-    contentType: false,
-    processData: false
+    $.ajax({
+      url: "deleteCategory.php",
+      type: 'GET',
+      enctype: 'multipart/form-data',
+      data: "idCategory="+id,
+      async: false,
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        if (data['success']) {
+          $( "#Cliente"+id  ).slideUp();
+          $("#mensajes").css("z-index", "999");
+          $($("#mensajes").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
+          $('#dataMessage').append(data['data']['message']);
+          setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
+        }
+        else{
+          $("#mensajes").css("z-index", "999");
+          $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
+          $('#dataMessage').append(data['data']['message']);
+          setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      } ,
+      cache: false,
+      contentType: false,
+      processData: false
 
-  });
+    });
 
 
 };

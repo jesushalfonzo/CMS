@@ -63,7 +63,7 @@ $link=Conectarse();
 
 
                   <br />
-                  <form class="form-horizontal form-label-left" id="formCategoria" name="formCategoria">
+                  <form class="form-horizontal form-label-left" id="formCategoria" name="formCategoria" enctype="multipart/form-data" >
 
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                       <span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>
@@ -87,7 +87,7 @@ $link=Conectarse();
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <label for="message">Ícono :</label>
                     <div class="radio" id="EstatusRadio">
-                      <input id="file-0a" class="file" type="file" multiple data-min-file-count="1">
+                      <input id="fileIcono" name="fileIcono" class="file" type="file" />
 
                     </div>
                   </div>
@@ -106,7 +106,7 @@ $link=Conectarse();
                <div class="ln_solid"></div>
                <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary" >Cancelar</button>
+                  <button type="button" class="btn btn-primary" onClick="document.location.href='listar.php'">Cancelar</button>
                   <button type="submit" class="btn btn-success" id="btn_enviar">Guardar</button>
                 </div>
               </div>
@@ -167,16 +167,30 @@ $(function() {
     rules: {
       nombreCat: "required",
       descripcionCat: "required",
+      fileIcono: {
+        required: true,
+        accept: "image/jpeg, image/pjpeg, image/png, image/gif"
+      }
     },
 
     messages: {
       nombreCat: "Debe especificar un nombre para la categoría",
       descripcionCat: "Debe especificar una descrición de la categoría",
+      fileIcono: {
+        required: "Debe seleccionar un ícono",
+        accept: "Solo se permiten imagenes JGP, GIF Y PNG",
+      },
     },
 
     submitHandler: function(form) {
 
      var formData = new FormData($("#formCategoria")[0]);
+     var file = $('#fileIcono').get(0).files[0];
+     console.log(file);
+     formData.append('file', file);
+
+
+
      $.ajax({
       url: "addCategoria.php",
       type: 'POST',
@@ -194,21 +208,18 @@ $(function() {
       } else{
         $("#mensajes").css("z-index", "999");
         $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-        $($("#dataMessage").html(data['data']['message']));
+        $.each(data['data']['message'], function(index, val) {
+          $('#dataMessage').append(val+ '<br>');
+        });
         setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
         
 
       };
 
     },
-    error: function(data) {
-     $("#mensajes").css("z-index", "999");
-     $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-     $.each(data['data']['message'], function(index, val) {
-      $('#dataMessage').append(val+ '<br>');
-    });
-     setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-   },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      } ,
    cache: false,
    contentType: false,
    processData: false

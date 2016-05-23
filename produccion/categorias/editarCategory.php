@@ -16,6 +16,7 @@ $row=mysqli_fetch_array($queryCategory);
 $m_categoria_nombre=$row["m_categoria_nombre"];
 $m_categoria_descripcion=$row["m_categoria_descripcion"];
 $m_categoria_estatus=$row["m_categoria_estatus"];
+$m_categoria_icono=$row["m_categoria_icono"];
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +28,9 @@ $m_categoria_estatus=$row["m_categoria_estatus"];
   <link href="../../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
   <!-- iCheck -->
   <link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../js/fileinput.js" type="text/javascript"></script>
 </head>
 <body class="nav-md">
   <div class="container body">
@@ -88,6 +92,19 @@ $m_categoria_estatus=$row["m_categoria_estatus"];
                  </div>
 
                  <div class="form-group">
+
+
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label for="message">Ícono : <img src="../../../multimedia/iconos/<?=$m_categoria_icono?>" style="background-color:#5F5F5F; width: 25%; height: 25%"></label>
+                    <div class="radio" id="EstatusRadio">
+
+                      <input id="fileIcono" name="fileIcono" class="file" type="file" />
+
+                    </div>
+                  </div>
+
+
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <label for="message">Estatus Categoría :</label>
                     <div class="radio" id="EstatusRadio">
@@ -101,9 +118,9 @@ $m_categoria_estatus=$row["m_categoria_estatus"];
 
 
                <div class="ln_solid"></div>
-               <div class="form-group">
-                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary" >Cancelar</button>
+               <div class="form-group" >
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3" style="margin-top:20px;">
+                  <button type="button" class="btn btn-primary" onClick="document.location.href='listar.php'">Cancelar</button>
                   <button type="submit" class="btn btn-success" id="btn_enviar">Guardar</button>
                 </div>
               </div>
@@ -174,6 +191,9 @@ $(function() {
     submitHandler: function(form) {
 
      var formData = new FormData($("#formCategoria")[0]);
+     var file = $('#fileIcono').get(0).files[0];
+     console.log(file);
+     formData.append('file', file);
      $.ajax({
       url: "updateCategory.php",
       type: 'POST',
@@ -192,9 +212,9 @@ $(function() {
         alert("ss");
         $("#mensajes").css("z-index", "999");
         $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-       $.each(data['data']['message'], function(index, val) {
-        $('#dataMessage').append(val+ '<br>');
-      });
+        $.each(data['data']['message'], function(index, val) {
+          $('#dataMessage').append(val+ '<br>');
+        });
         setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
         
 
