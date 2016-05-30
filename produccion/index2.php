@@ -30,42 +30,50 @@ $link=Conectarse();
             <div class="row top_tiles">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                  <div class="icon"><i class="fa fa-suitcase"></i>
                   </div>
-                  <div class="count">179</div>
 
-                  <h3>New Sign ups</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <?php
+                    $SQLClientes="SELECT SUM(CASE WHEN m_cliente_tipoCliente = '1' THEN 1 ELSE 0 END) AS clientes, SUM(CASE WHEN m_cliente_tipoCliente ='2' THEN 1 ELSE 0 END) AS usuarios FROM m_clientes WHERE m_cliente_estatus='1'  AND m_cliente_verificado='1' ORDER BY  m_cliente_id ASC ";
+                    $queryCluentes=mysqli_query($link, $SQLClientes);
+                    $rowClientes=mysqli_fetch_array($queryCluentes);
+                    $cliemtesRegistrados=$rowClientes["clientes"];
+                    $usuariosRegistrados=$rowClientes["usuarios"];
+                  ?>
+                  <div class="count"><?=$cliemtesRegistrados?></div>
+
+                  <h3>Clientes Registrados</h3>
+                  <p>Clientes ofertantes</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-comments-o"></i>
+                  <div class="icon"><i class="fa fa-users"></i>
                   </div>
-                  <div class="count">179</div>
+                  <div class="count"><?=$usuariosRegistrados?></div>
 
-                  <h3>New Sign ups</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                 <h3>Usuarios Registrados </h3>
+                  <p>Usuarios compradores </p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                  <div class="icon"><i class="fa fa-tag"></i>
                   </div>
-                  <div class="count">179</div>
+                  <div class="count"><?=$usuariosRegistrados?></div>
 
-                  <h3>New Sign ups</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                 <h3>Ofertas Activas</h3>
+                  <p>Ofertas en periodo de validéz</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-check-square-o"></i>
+                  <div class="icon"><i class="fa fa-shopping-cart"></i>
                   </div>
                   <div class="count">179</div>
 
-                  <h3>New Sign ups</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <h3>Ventas del día</h3>
+                  <p>Ventas de las últimas 24 horas</p>
                 </div>
               </div>
             </div>
@@ -117,7 +125,7 @@ $link=Conectarse();
                     <div class="col-md-3 col-sm-12 col-xs-12">
                       <div>
                         <div class="x_title">
-                          <h2>Top Profiles</h2>
+                          <h2>Top de clientes</h2>
                           <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -202,291 +210,9 @@ $link=Conectarse();
 
 
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Weekly Summary <small>Activity shares</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
+       
 
-                    <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
-                      <div class="col-md-7" style="overflow:hidden;">
-                        <span class="sparkline_one" style="height: 160px; padding: 10px 25px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
-                        <h4 style="margin:18px">Weekly sales progress</h4>
-                      </div>
-
-                      <div class="col-md-5">
-                        <div class="row" style="text-align: center;">
-                          <div class="col-md-4">
-                            <canvas id="canvas1i" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">Bounce Rates</h4>
-                          </div>
-                          <div class="col-md-4">
-                            <canvas id="canvas1i2" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">New Traffic</h4>
-                          </div>
-                          <div class="col-md-4">
-                            <canvas id="canvas1i3" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">Device Share</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="row">
-              <div class="col-md-4">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Top Profiles <small>Sessions</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item One Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Three Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Top Profiles <small>Sessions</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item One Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Three Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Top Profiles <small>Sessions</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item One Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Two Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                    <article class="media event">
-                      <a class="pull-left date">
-                        <p class="month">April</p>
-                        <p class="day">23</p>
-                      </a>
-                      <div class="media-body">
-                        <a class="title" href="#">Item Three Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </div>
+        
           </div>
         </div>
         <!-- /page content -->
@@ -604,155 +330,8 @@ $link=Conectarse();
     </script>
     <!-- /Flot -->
 
-    <!-- jQuery Sparklines -->
-    <script>
-      $(document).ready(function() {
-        $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-          type: 'bar',
-          height: '125',
-          barWidth: 13,
-          colorMap: {
-            '7': '#a1a1a1'
-          },
-          barSpacing: 2,
-          barColor: '#26B99A'
-        });
 
-        $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-          type: 'bar',
-          height: '40',
-          barWidth: 8,
-          colorMap: {
-            '7': '#a1a1a1'
-          },
-          barSpacing: 2,
-          barColor: '#26B99A'
-        });
-
-        $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-          type: 'line',
-          height: '40',
-          width: '200',
-          lineColor: '#26B99A',
-          fillColor: '#ffffff',
-          lineWidth: 3,
-          spotColor: '#34495E',
-          minSpotColor: '#34495E'
-        });
-      });
-    </script>
-    <!-- /jQuery Sparklines -->
-
-    <!-- Doughnut Chart -->
-    <script>
-      $(document).ready(function() {
-        var canvasDoughnut,
-            options = {
-              legend: false,
-              responsive: false
-            };
-
-        new Chart(document.getElementById("canvas1i"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-
-        new Chart(document.getElementById("canvas1i2"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-
-        new Chart(document.getElementById("canvas1i3"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-      });
-    </script>
-    <!-- /Doughnut Chart -->
+   
 
     <!-- bootstrap-daterangepicker -->
     <script type="text/javascript">

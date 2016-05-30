@@ -95,15 +95,10 @@ $link=Conectarse();
 
                   </div>
 
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="loginCliente" id="loginCliente" placeholder="Login">
-
-                  </div>
-
+                 
                   <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                    <span class="fa fa-unlock-alt form-control-feedback right" aria-hidden="true"></span>
-                    <input type="text" class="form-control" name="passwordContacto" id="passwordContacto" placeholder="Password">
+                    <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
+                    <input type="text" class="form-control has-feedback-left" name="passwordContacto" id="passwordContacto" placeholder="Password">
                   </div>
                   <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
 

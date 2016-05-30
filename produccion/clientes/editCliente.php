@@ -18,7 +18,6 @@ $m_cliente_mail=$row["m_cliente_mail"];
 $m_cliente_telefono=$row["m_cliente_telefono"];
 $m_cliente_nombreContacto=$row["m_cliente_nombreContacto"];
 $m_cliente_telefonoContacto=$row["m_cliente_telefonoContacto"];
-$m_cliente_login=$row["m_cliente_login"];
 $m_cliente_password=$row["m_cliente_password"];
 $m_cliente_estatus=$row["m_cliente_estatus"];
 $m_cliente_verificado=$row["m_cliente_verificado"];
@@ -96,7 +95,7 @@ $m_cliente_fecharegistro=$row["m_cliente_fecharegistro"];
 
                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="emailCliente" id="emailCliente" placeholder="Email" value="<?=$m_cliente_mail?>">
+                    <input type="text" class="form-control  has-feedback-left" name="emailCliente" id="emailCliente" placeholder="Email" value="<?=$m_cliente_mail?>">
 
                   </div>
 
@@ -118,15 +117,10 @@ $m_cliente_fecharegistro=$row["m_cliente_fecharegistro"];
 
                   </div>
 
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                    <input type="text" class="form-control has-feedback-left" name="loginCliente" id="loginCliente" placeholder="Login" readonly="readonly" value="<?=$m_cliente_login?>">
-
-                  </div>
 
                   <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                    <span class="fa fa-unlock-alt form-control-feedback right" aria-hidden="true"></span>
-                    <input type="text" class="form-control" name="passwordContacto" id="passwordContacto" placeholder="Password">
+                    <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
+                    <input type="text" class="form-control has-feedback-left" name="passwordContacto" id="passwordContacto" placeholder="Password">
                   </div>
                   <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
 

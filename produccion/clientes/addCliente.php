@@ -15,7 +15,6 @@ if((isset($_POST["emailCliente"]))&&($_POST["emailCliente"]!="")){ $emailCliente
 if((isset($_POST["telefonoCliente"]))&&($_POST["telefonoCliente"]!="")){ $telefonoCliente=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["telefonoCliente"]))); } else {$aErrores[] = "Debe introducir un número de teléfono";}
 if((isset($_POST["nombreContacto"]))&&($_POST["nombreContacto"]!="")){ $nombreContacto=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["nombreContacto"]))); } else {$aErrores[] = "Debe indicar un nombre de contacto";}
 if((isset($_POST["telefonoContacto"]))&&($_POST["telefonoContacto"]!="")){ $telefonoContacto=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["telefonoContacto"]))); } else {$aErrores[] = "Debe introducir el número de teléfono del cantacto";}
-if((isset($_POST["loginCliente"]))&&($_POST["loginCliente"]!="")){ $loginCliente=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["loginCliente"]))); } else {$aErrores[] = "Debe especificar un login";}
 if((isset($_POST["passwordContacto"]))&&($_POST["passwordContacto"]!="")){ $passwordCliente=md5(strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["passwordContacto"])))); } else {$aErrores[] = "Debe introducir un password";}
 if((isset($_POST["estatus"]))&&($_POST["estatus"]!="")){ $activo=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["estatus"]))); }  else {$activo=0;}
 if((isset($_POST["verificacion"]))&&($_POST["verificacion"]!="")){ $verificacion=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["verificacion"]))); } else {$verificacion=0;}
@@ -32,11 +31,11 @@ $fechacompleta=date('Y-m-d H:i:s');
 	}
 
 	//PARA VALIDAR SI EL LOGIN EXISTE EN LA BD CONSULTO SI YA EL RIF EXISTE
-	$queryValLogin = "SELECT m_cliente_id FROM  m_clientes WHERE m_cliente_login='".mysqli_real_escape_string($link, $loginCliente)."'";
+	$queryValLogin = "SELECT m_cliente_id FROM  m_clientes WHERE m_cliente_mail='".mysqli_real_escape_string($link, $emailCliente)."'";
 	$resultadoValLogin = mysqli_query($link, $queryValLogin);
 	$existeLogin=mysqli_num_rows($resultadoValLogin);
 	if ($existeLogin >0) {
-		$aErrores[] ="Este login de usuario ya existe, por favor seleccione otro";
+		$aErrores[] ="Este email ya se encuentra registrado";
 	}
 
 

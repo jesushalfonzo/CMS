@@ -77,7 +77,7 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                      $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_id='$idCliente' ORDER BY m_cliente_razonSocial ASC LIMIT 0,1";
                   } 
                   else{
-                     $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_estatus='1' ORDER BY m_cliente_razonSocial ASC LIMIT 0,9";
+                     $QueryClientes="SELECT * FROM m_clientes WHERE m_cliente_estatus='1' AND m_cliente_tipoCliente='1'  ORDER BY m_cliente_razonSocial ASC LIMIT 0,9";
                   }
                    
                     $query=mysqli_query($link, $QueryClientes);
@@ -117,26 +117,15 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                                 <img src="../images/user.png" alt="" class="img-circle img-responsive">
                               </div>
                               <div class="right col-xs-5 text-right">
-                                <?php
-                                if ($m_cliente_verificado) {
-                                 ?>
-                                 <button type="button" class="btn btn-success btn-xs" title="Cliente Verificado" style="padding-bottom:16px;"> <i class="fa fa-check-square"></i></button>
-                                 <?php
-                               } else {
-                                 ?>
-                                 <button type="button" class="btn btn-warning btn-xs" title="Cliente Sin Verificar" style="padding-bottom:16px;"> <i class="fa fa-clock-o"></i></button>
-                                 <?php
-                               }
-
-                               ?>
+                                &nbsp;
 
                                
                              </div>
                            </div>
 
-                           <div class="col-xs-12 bottom text-center">
+                           <div class="col-xs-12 bottom text-left">
 
-                            <div class="col-xs-12 col-sm-9 emphasis">
+                            <div class="col-xs-12 col-sm-12 emphasis">
                               <?php if (control_access("CLIENTES", 'EDITAR')) { ?> 
                               <button type="button" class="btn btn-success btn-xs editando" data-id="<?=$m_cliente_id?>"> <i class="fa fa-user">
                               </i> Editar</button>
@@ -150,6 +139,21 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                               <button type="button" class="btn btn-danger btn-xs" data-id="<?=$m_cliente_id?>" data-title="Seguro que desea eliminar?" data-trigger="focus" data-on-confirm="deleteCliente" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top"> 
                                 <i class="fa fa-trash-o"> </i> Borrar </button>
                                 <?php } ?>
+                                
+                                  <?php
+                                if ($m_cliente_verificado) {
+                                 ?>
+                                 <button type="button" class="btn btn-success btn-xs" title="Cliente Verificado" style="padding-bottom:0px; float:right;"> <i class="fa fa-check-square"></i></button>
+                                 <?php
+                               } else {
+                                 ?>
+                                 <button type="button" class="btn btn-warning btn-xs" title="Cliente Sin Verificar" style="padding-bottom:0px; float:right;"> <i class="fa fa-clock-o"></i></button>
+                                 <?php
+                               }
+
+                               ?>
+
+
                               </div>
                             </div>
                           </div>
