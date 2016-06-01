@@ -1,6 +1,6 @@
  <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Todos los Derechos Reservados OfertAmarillas.com 2016
           </div>
           <div class="clearfix"></div>
         </footer>
