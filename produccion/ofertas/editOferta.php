@@ -1,6 +1,28 @@
 <?php include('../logeo.php'); 
 include('../extras/conexion.php');
 $link=Conectarse();
+
+
+if((isset($_GET["id"]))&&($_GET["id"]!="")){ $idOferta= $_GET["id"]; }
+
+$SQL="SELECT * FROM m_ofertas WHERE m_oferta_id = '$idOferta'";
+$query=mysqli_query($link, $SQL);
+while ($row=mysqli_fetch_array($query)) {
+  $m_oferta_idCliente=$row["m_oferta_idCliente"];
+  $m_oferta_idCategoria =$row["m_oferta_idCategoria"];
+  $m_oferta_titulo=$row["m_oferta_titulo"];
+  $m_oferta_descripcion=$row["m_oferta_descripcion"];
+  $m_oferta_cantidad=$row["m_oferta_cantidad"];
+  $m_oferta_precioCupon=$row["m_oferta_precioCupon"];
+  $m_oferta_porcentajeAhorro=round($row["m_oferta_porcentajeAhorro"]);
+  $m_oferta_fecha=$row["m_oferta_fecha"];
+  $m_oferta_fechaInicio=date("m/d/Y h:i A", strtotime($row["m_oferta_fechaInicio"]));
+  $m_oferta_fechaFin=date("m/d/Y h:i A", strtotime($row["m_oferta_fechaFin"]));
+  $m_oferta_estusActivado=$row["m_oferta_estusActivado"];
+  $m_oferta_estatusVerificado=$row["m_oferta_estatusVerificado"];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -69,10 +91,10 @@ $link=Conectarse();
 
                   <br />
                   <form class="form-horizontal form-label-left" data-parsley-validate id="formOfertas" name="formOfertas" enctype="multipart/form-data">
-
+                    <input type="hidden" name="idOferta" id="idOferta" value="<?=$idOferta?>">
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                       <span class="fa fa-text-height form-control-feedback left" aria-hidden="true"></span>
-                      <input type="text" name="tituloOferta" class="form-control has-feedback-left" id="tituloOferta" placeholder="Titulo de la Oferta">
+                      <input type="text" name="tituloOferta" class="form-control has-feedback-left" id="tituloOferta" placeholder="Titulo de la Oferta" value="<?=$m_oferta_titulo?>">
                       
                     </div>
 
@@ -87,7 +109,7 @@ $link=Conectarse();
                           $m_categoria_nombre=$rowCat["m_categoria_nombre"];
 
                           ?>
-                          <option value="<?=$m_categoria_id?>"><?=$m_categoria_nombre?></option>
+                          <option value="<?=$m_categoria_id?>" <?php if($m_oferta_idCategoria==$m_categoria_id){echo "selected";}?>><?=$m_categoria_nombre?></option>
 
                           <?php } ?>
 
@@ -98,7 +120,7 @@ $link=Conectarse();
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <span class="fa fa-subscript form-control-feedback left" aria-hidden="true"></span>
-                        <input type="text" class="form-control has-feedback-left numeric" name="cantidadCupones" id="cantidadCupones" placeholder="Cantidad de Cupones Disponibles">
+                        <input type="text" class="form-control has-feedback-left numeric" name="cantidadCupones" id="cantidadCupones" placeholder="Cantidad de Cupones Disponibles" value="<?=$m_oferta_cantidad?>">
 
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -112,7 +134,7 @@ $link=Conectarse();
                             $m_cliente_razonSocial=$rowCliente["m_cliente_razonSocial"];
 
                             ?>
-                            <option value="<?=$m_cliente_id?>"><?=$m_cliente_razonSocial?></option>
+                            <option value="<?=$m_cliente_id?>" <?php if($m_oferta_idCliente==$m_cliente_id){ echo "selected";} ?>><?=$m_cliente_razonSocial?></option>
 
                             <?php } ?>
 
@@ -126,14 +148,14 @@ $link=Conectarse();
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <span class="fa fa-calculator form-control-feedback left" aria-hidden="true"></span>
-                          <input type="text" class="form-control has-feedback-left" name="porcentajeAhorro" id="porcentajeAhorro" placeholder="Porcentaje del Ahorro (Sin el %)">
+                          <input type="text" class="form-control has-feedback-left" name="porcentajeAhorro" id="porcentajeAhorro" placeholder="Porcentaje del Ahorro (Sin el %)" value="<?=$m_oferta_porcentajeAhorro?>">
 
                         </div>
 
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
-                          <input type="text" class="form-control has-feedback-left" name="valorCupon" id="valorCupon" placeholder="Valor de cada cupón">
+                          <input type="text" class="form-control has-feedback-left" name="valorCupon" id="valorCupon" placeholder="Valor de cada cupón" value="<?=$m_oferta_precioCupon?>">
 
                         </div>
 
@@ -142,13 +164,13 @@ $link=Conectarse();
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                          <input type="text" class="form-control has-feedback-left" name="validoDesde" id="validoDesde" placeholder="Válido Desde">
+                          <input type="text" class="form-control has-feedback-left" name="validoDesde" id="validoDesde" placeholder="Válido Desde" value="<?=$m_oferta_fechaInicio?>">
 
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                          <input type="text" class="form-control has-feedback-left" name="validoHasta" id="validoHasta" placeholder="Válido Hasta">
+                          <input type="text" class="form-control has-feedback-left" name="validoHasta" id="validoHasta" placeholder="Válido Hasta" value="<?=$m_oferta_fechaFin?>">
 
                         </div>
 
@@ -243,9 +265,9 @@ $link=Conectarse();
                             </div>
 
                             <div id="editor">
-
+                            <?=$m_oferta_descripcion?>
                             </div>
-                            <textarea name="descripcionOferta" id="descripcionOferta" style="display:none;"></textarea>
+                            <textarea name="descripcionOferta" id="descripcionOferta" style="display:none;"><?=$m_oferta_descripcion?></textarea>
                             <br />
 
                             <div class="ln_solid"></div>
@@ -257,8 +279,7 @@ $link=Conectarse();
                       </div>
                       <div class="col-md-12 col-sm-6 col-xs-12" style="margin-bottom:30px;">
                        <h2>Fotos de la Oferta</h2>
-                       <input type="hidden" name="idsImagenes" id="idsImagenes" value="">
-                       <input id="archivos" name="archivos[]" class="file" type="file" multiple data-min-file-count="1" data-upload-url="uploadMedia.php">
+                       <input id="archivos" name="archivos[]" class="file" type="file" multiple data-min-file-count="0" data-upload-url="uploadMedia.php">
                        <div id="errorBlock" class="help-block"></div>
 
                      </div>
@@ -271,16 +292,16 @@ $link=Conectarse();
                     <label for="message">Estatus Oferta :</label>
                     <div class="radio" id="EstatusRadio">
 
-                     <input type="checkbox" class="js-switch" id="estatus" name="estatus" value="1"/>  
-                     <label id="estatusText" for="estatus">Inactivo</label>
+                     <input type="checkbox" class="js-switch" id="estatus" name="estatus" value="1"  <?php if($m_oferta_estusActivado){ echo "checked='checked'"; } ?>/>  
+                     <label id="estatusText" for="estatus"><?php if($m_oferta_estusActivado){ echo "Activo"; } else{ echo "Inactiva"; }?></label>
                    </div>
                  </div>
                  <div class="col-md-6 col-sm-6 col-xs-12">
                   <label for="message">Verificación de la Oferta</label>
                   <div class="" id="Estatusverificado">
 
-                    <input type="checkbox" id="verificacion" class="js-switch" name="verificacion" value="1"/> 
-                    <label id="verificadoText" for="verificacion">Sin verificar</label>
+                    <input type="checkbox" id="verificacion" class="js-switch" name="verificacion" value="1" <?php if($m_oferta_estatusVerificado){ echo "checked='checked'"; } ?>/> 
+                    <label id="verificadoText" for="verificacion"><?php if($m_oferta_estatusVerificado){ echo "Verificado"; } else{ echo "Sin Verificar"; }?></label>
                   </div>
                 </div>
               </div>
@@ -292,6 +313,7 @@ $link=Conectarse();
 
                   <button type="submit" class="btn btn-success" id="btn_enviar">Guardar</button>
                   <button type="button" onClick="document.location.href='listar.php'" class="btn btn-warning" >Cancelar</button>
+
                 </div>
               </div>
 
@@ -358,18 +380,47 @@ $link=Conectarse();
 $("#archivos").fileinput({
   'showPreview' : true,
   'allowedFileExtensions' : ['jpg', 'png','gif'],
+  overwriteInitial: false,
+  initialPreview: [
+
+  <?php
+  $SQLImages="SELECT * FROM r_medias WHERE r_media_idOferta= '$idOferta'";
+  $queryImages=mysqli_query($link, $SQLImages);
+  $cantidad=mysqli_num_rows($queryImages);
+  $i=0;
+  while ($rowImages=mysqli_fetch_array($queryImages)) {
+    $r_media_path=$rowImages["r_media_path"];
+    $i++;
+  ?>
+        "uploads/<?=$r_media_path?>"<?php if($i < $cantidad){echo","; } } ?>
+    ],
+     initialPreviewAsData: true,
+    initialPreviewFileType: 'image',
+    initialPreviewConfig: [
+      <?php
+  $SQLImages="SELECT * FROM r_medias WHERE r_media_idOferta= '$idOferta'";
+  $queryImages=mysqli_query($link, $SQLImages);
+  $cantidad=mysqli_num_rows($queryImages);
+  $i=0;
+  while ($rowImages=mysqli_fetch_array($queryImages)) {
+    $r_media_id=$rowImages["r_media_id"];
+    $r_media_path=$rowImages["r_media_path"];
+    $i++;
+  ?>
+        {caption: "<?=$r_media_path?>", size: 827000, width: "120px", url: "mediaDelete.php?idmedia=<?=$r_media_id?>", key: 1},
+        <?php } ?>
+    ],
+    purifyHtml: true, // this by default purifies HTML data for preview
+    uploadExtraData: {
+        idOferta: "<?=$idOferta?>",
+    }
+    }).on('filesorted', function(e, params) {
+    console.log('File sorted params', params);
+}).on('fileuploaded', function(e, params) {
+    console.log('File uploaded params', params);
+
 
 });
-$('#archivos').on('fileuploaded', function(event, data, previewId, index) {
-  var form = data.form, files = data.files, extra = data.extra,
-  response = data.response, reader = data.reader;
-
-  $.each(response, function(index, val) {
-    var input = $( "#idsImagenes" );
-    input.val( input.val() +","+ val );
-  });
-})
-
 
 </script>
 
@@ -435,7 +486,6 @@ $("#Estatusverificado").click(function() {
 });
 
 
-
 </script>
 
 
@@ -481,9 +531,10 @@ $(function() {
 
     submitHandler: function(form) {
       document.getElementById('descripcion').value = document.getElementById("editor").innerHTML;
+      $( ".fileinput-upload-button" ).click();
       var formData = new FormData($("#formOfertas")[0]);
       $.ajax({
-        url: "addOfertas.php",
+        url: "modifyOferta.php",
         type: 'POST',
         enctype: 'multipart/form-data',
         data: formData,
@@ -535,9 +586,6 @@ $("#remove").click(
   );
 
 </script>
-
-
-
 
 <!-- bootstrap-wysiwyg -->
 <script>
