@@ -32,8 +32,9 @@ if (!control_access("ADMINISTRACION", 'VER')) {  echo "<script language='JavaScr
           <div class="row">
             <div class="col-md-12">
               <div class="x_panel">
+                <div id="mensajes"></div>
                 <div class="x_title">
-                  <h2>Usuarios del Sistema</h2>
+                  <h2>Gruppos del Sistema</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -59,73 +60,47 @@ if (!control_access("ADMINISTRACION", 'VER')) {  echo "<script language='JavaScr
                     <thead>
                       <tr>
                         <th style="width: 1%">#</th>
-                        <th style="width: 20%">Nombre del Usuario</th>
-                        <th>Grupo al que pertenece</th>
-                        <th>Login</th>
-                        <th>Correo</th>
-                        <th>Status</th>
+                        <th style="width: 20%">Nombre del Grupo</th>
+                        <th>Descripción</th>
+                        <th>Cantidad de usuarios</th>
                         <th style="width: 20%">#Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
 
                      <?php
-                    $SQL="SELECT * FROM m_usuario, m_grupo WHERE m_usuario.m_grupo_id=m_grupo.m_grupo_id ORDER BY m_usuario_login ASC";
+                    $SQL="SELECT * FROM m_grupo ORDER BY m_grupo_nombre ASC";
                     $query=mysqli_query($link, $SQL);
                     while ($row=mysqli_fetch_array($query)) {
-                      $m_usuario_id=$row["m_usuario_id"];
-                      $m_usuario_login=$row["m_usuario_login"];
-                      $m_usuario_nombre=$row["m_usuario_nombre"];
-                      $m_usuario_apellido=$row["m_usuario_apellido"];
                       $m_grupo_id=$row["m_grupo_id"];
                       $m_grupo_nombre=$row["m_grupo_nombre"];
-                      $m_usuario_status=$row["m_usuario_status"];
-                      $m_usuario_correo=$row["m_usuario_correo"];
-                    if ($m_usuario_status=="A") {
-                      $estatus="Activo";
-                      $class="default";
-                      $clase="success";
-                      $text="Desactivar";
-                      $nextStatus="D";
-                    }
-                    else{
-                      $estatus="Desactivado";
-                      $class="success";
-                      $text="Activar";
-                      $nextStatus="A";
-                      $clase="default";
-                    }
+                      $m_grupo_descripcion=$row["m_grupo_descripcion"];
 
                      ?>
-                      <tr id="User<?=$m_usuario_id?>">
+                      <tr id="User<?=$m_grupo_id?>">
                         <td>#</td>
                         <td>
-                          <a><?=$m_usuario_nombre?> <?=$m_usuario_apellido?> </a>
+                          <a><?=$m_grupo_nombre?></a>
                           <br />
                         </td>
                         <td>
                           <ul class="list-inline">
                             <li>
-                            <?=$m_grupo_nombre?>
+                            <?=$m_grupo_descripcion?>
                             </li>
                            
                           </ul>
                         </td>
-                        <td >
-                          <?=$m_usuario_login?>
-                        </td>
-                         <td >
-                          <?=$m_usuario_correo?>
+             
+                        <td>
+                          <button type="button" class="btn btn-success btn-xs">2</button>
                         </td>
                         <td>
-                          <button type="button" class="btn btn-<?=$clase?> btn-xs"><?=$estatus?></button>
-                        </td>
-                        <td>
-                          <a href="#" class="btn btn-info btn-xs editando" data-id="<?=$m_usuario_id?>"><i class="fa fa-pencil"></i> Editar </a>
+                          <a href="#" class="btn btn-info btn-xs editando" data-id="<?=$m_grupo_id?>"><i class="fa fa-pencil"></i> Editar </a>
                            <?php if (control_access("ADMINISTRACION", 'ELIMINAR')) { ?>
-                      <button type="button" class="btn btn-danger btn-xs" data-id="<?=$m_usuario_id?>" data-accion="Eliminar" data-title="Seguro que desea Eliminar?" data-trigger="focus" data-on-confirm="deleteUser" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="Seguro que desea Eliminar?">  <i class="fa fa-trash-o"> </i> Eliminar</button>
+                      <button type="button" class="btn btn-danger btn-xs" data-id="<?=$m_grupo_id?>" data-accion="Eliminar" data-title="Seguro que desea Eliminar?" data-trigger="focus" data-on-confirm="deleteGroup" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="Seguro que desea Eliminar?">  <i class="fa fa-trash-o"> </i> Eliminar</button>
                       <?php } ?>
-                      <button type="button" class="btn btn-<?=$class?> btn-xs" data-id="<?=$m_usuario_id?>" data-accion="<?=$nextStatus?>" data-title="Seguro que desea <?=$text?>?" data-trigger="focus" data-on-confirm="changeStatus" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top"><?=$text?></button>
+                      <a href="#" class="btn btn-primary btn-xs cambiando" data-id="<?=$m_grupo_id?>"><i class="fa fa-pencil"></i> Editar Permisos </a>
                         </td>
                       </tr>
 
@@ -172,15 +147,15 @@ if (!control_access("ADMINISTRACION", 'VER')) {  echo "<script language='JavaScr
 
 $('[data-toggle=confirmation]').confirmation();
 
-function deleteUser(){
+function deleteGroup(){
 
   var id = $(this).data('id');
 
   $.ajax({
-    url: "deleteUser.php",
+    url: "deleteGroup.php",
     type: 'GET',
     enctype: 'multipart/form-data',
-    data: "idUser="+id,
+    data: "idGrupo="+id,
     async: false,
     contentType: "application/json",
     dataType: "json",
@@ -221,49 +196,14 @@ function deleteUser(){
 $(".editando").click(function (e) {
   var idEditar=$(this).data('id');
 
-  window.location.href = 'editUser.php?idUser='+idEditar;
+  window.location.href = 'editGroup.php?idGrupo='+idEditar;
 });
 
-//ACTIVAR/DESACTIVAR CATEGORÏAS
-function changeStatus(){
+$(".cambiando").click(function (e) {
+  var idEditar=$(this).data('id');
 
-  var id = $(this).data('id');
-  var nextStatus= $(this).data('accion');
-  $.ajax({
-    url: "changeStatus.php",
-    type: 'GET',
-    enctype: 'multipart/form-data',
-    data: "idUser="+id+"&nextStatus="+nextStatus,
-    async: false,
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      if (data['success']) {
-        $("#mensajes").css("z-index", "999");
-        $($("#mensajes").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-        $('#dataMessage').append(data['data']['message']);
-        setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-        setTimeout(function() { document.location.href="index.php";}, 1000);
+  window.location.href = 'changePermisos.php?idGrupo='+idEditar;
+});
 
-      }
-      else{
-        $("#mensajes").css("z-index", "999");
-        $($("#mensajes").html("<div class='alert alert-error'><a href='#' class='close' data-dismiss='alert' id='cerrar'>&times;</a><div id='dataMessage'></div></div>").fadeIn("slow"));
-        $('#dataMessage').append(data['data']['message']);
-        setTimeout(function() { $(".alert").alert('close'); $("#mensajes").css("z-index", "-1");}, 2000);
-      }
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-      alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-    } ,
-    cache: false,
-    contentType: false,
-    processData: false
-
-  });
-
-
-};
-//FIN ACTIVAR/DESACTIVAR
 
 </script>

@@ -100,7 +100,7 @@
                        <li><a href="<?=$serveractual?>/produccion/administracion/cambiaclave.php"><i class="fa fa-edit"></i>Cambiar Clave</a>
                       </li>
                       <?php if (control_access("ADMINISTRACION", 'AGREGAR')) { ?>
-                      <li><a href="<?=$serveractual?>/produccion/administracion/creargrupo.php"><i class="fa fa-users"></i>Crear Grupo</a>
+                      <li><a href="<?=$serveractual?>/produccion/administracion/crearGrupo.php"><i class="fa fa-users"></i>Crear Grupo</a>
                       </li>
                       <?php }?>
                       <?php if (control_access("ADMINISTRACION", 'AGREGAR')) { ?>
