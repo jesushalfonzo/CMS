@@ -202,7 +202,7 @@ $(".editando").click(function (e) {
 $(".cambiando").click(function (e) {
   var idEditar=$(this).data('id');
 
-  window.location.href = 'changePermisos.php?idGrupo='+idEditar;
+  window.location.href = 'permisos.php?idGrupo='+idEditar;
 });
 
 
