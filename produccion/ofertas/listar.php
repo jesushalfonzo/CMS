@@ -282,6 +282,8 @@ else{
                       <?php if (control_access("OFERTAS", 'ELIMINAR')) { ?>
                       <button type="button" class="btn btn-danger btn-xs" data-id="<?=$m_oferta_id?>" data-accion="Eliminar" data-title="Seguro que desea Eliminar?" data-trigger="focus" data-on-confirm="deleteOferta" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="Seguro que desea Eliminar?">  <i class="fa fa-trash-o"> </i> Eliminar</button>
                       <?php } ?>
+
+                      
                     </td>
                   </tr>
 

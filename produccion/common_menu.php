@@ -8,7 +8,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="<?=$serveractual?>/produccion/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="<?=$serveractual?>/produccion/images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
@@ -78,7 +78,9 @@
                 
                   <li><a><i class="fa fa-shopping-cart"></i> Ventas  <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-ticket"></i>Ventas por Oferta</a>
+                       <li><a href="<?=$serveractual?>/produccion/ventas/ventas.php"><i class="fa fa-shopping-cart"></i>Listado de Ventas</a>
+                      </li>
+                      <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-tags"></i>Ventas por Oferta</a>
                       </li>
                       <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-bar-chart"></i>Reporte</a>
                       </li>
@@ -90,6 +92,33 @@
                   <?php } ?>
 
                
+
+                   
+                
+                  <li><a><i class="fa fa-cog"></i> Administración  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                       <li><a href="<?=$serveractual?>/produccion/administracion/cambiaclave.php"><i class="fa fa-edit"></i>Cambiar Clave</a>
+                      </li>
+                      <?php if (control_access("ADMINISTRACION", 'AGREGAR')) { ?>
+                      <li><a href="<?=$serveractual?>/produccion/administracion/creargrupo.php"><i class="fa fa-users"></i>Crear Grupo</a>
+                      </li>
+                      <?php }?>
+                      <?php if (control_access("ADMINISTRACION", 'AGREGAR')) { ?>
+                      <li><a href="<?=$serveractual?>/produccion/administracion/crearusuario.php"><i class="fa fa-user"></i>Agregar Usuario</a>
+                      </li>
+                      <?php }?>
+                      <?php if (control_access("ADMINISTRACION", 'VER')) { ?>
+                        <li><a href="<?=$serveractual?>/produccion/administracion/index.php"><i class="fa fa-database"></i>Ver usuarios</a>
+                      </li>
+                      
+                      <?php if (control_access("ADMINISTRACION", 'VER')) { ?>
+                        <li><a href="<?=$serveractual?>/produccion/administracion/indexGrupos.php"><i class="fa fa-reorder"></i>Ver Grupos </a>
+                      </li>
+                      <?php }?>
+                                           
+                    </ul>
+                  </li>
+                  <?php } ?>
 
                 </ul>
               </div>

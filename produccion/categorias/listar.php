@@ -136,7 +136,7 @@ $link=Conectarse();
                               <?php if (control_access("CATEGORIAS", 'ELIMINAR')) { ?>
                               <button type="button" class="btn btn-default btn-xs" data-id="<?=$m_categoria_id?>" data-accion="<?=$nextStatus?>" data-title="Seguro que desea <?=$text?>?" data-trigger="focus" data-on-confirm="changeStatus" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top" title="<?=$text?>?"> <i class="fa fa-<?=$icon?>"></i></button>
                               <?php } ?>
-
+                              
                             </td>
 
                           </tr>
