@@ -303,7 +303,7 @@ $("#remove").click(
 
 </script>
 
-<script>(function($){validarRif('rifCliente'); function validacionRif() {$.validator.addMethod('rif', function(value, element){value = value.toUpperCase();if (!/^[Vv]{1}[-]{1}[0-9]{8}[-]{1}[0-9]{1}$/.test(value))return false;else {return true;}}, 'Ingrese un rif válido.');}})(jQuery);</script>
+<script>/*(function($){validarRif('rifCliente'); function validacionRif() {$.validator.addMethod('rif', function(value, element){value = value.toUpperCase();if (!/^[Vv]{1}[-]{1}[0-9]{8}[-]{1}[0-9]{1}$/.test(value))return false;else {return true;}}, 'Ingrese un rif válido.');}})(jQuery);*/</script>
 
 
 <script type="text/javascript">

@@ -80,8 +80,8 @@
                     <ul class="nav child_menu">
                        <li><a href="<?=$serveractual?>/produccion/ventas/ventas.php"><i class="fa fa-shopping-cart"></i>Listado de Ventas</a>
                       </li>
-                      <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-tags"></i>Ventas por Oferta</a>
-                      </li>
+                     <!-- <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-tags"></i>Ventas por Oferta</a>
+                      </li>-->
                       <li><a href="<?=$serveractual?>/produccion/ventas/index.php"><i class="fa fa-bar-chart"></i>Reporte</a>
                       </li>
                       

@@ -70,7 +70,14 @@ $link=Conectarse();
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-shopping-cart"></i>
                   </div>
-                  <div class="count">179</div>
+
+                  <?php
+                  $SQL24="SELECT COUNT(*) AS ventasHoy from m_ventas where m_venta_fecha between now() - INTERVAL 1 DAY and now()";
+                  $query24=mysqli_query($link, $SQL24);
+                  $row24=mysqli_fetch_array($query24);
+                  $ventasHoy=$row24["ventasHoy"];
+                  ?>
+                  <div class="count"><?=$ventasHoy?></div>
 
                   <h3>Ventas del día</h3>
                   <p>Ventas de las últimas 24 horas</p>
@@ -144,61 +151,31 @@ $link=Conectarse();
                           <div class="clearfix"></div>
                         </div>
                         <ul class="list-unstyled top_profiles scroll-view">
+                          
+                          <?php
+                          $SQLTop="SELECT C.m_cliente_razonSocial, C.m_cliente_mail, SUM(O.m_oferta_cantidad) AS cantidadOfertas FROM m_clientes AS C  INNER JOIN m_ofertas AS O ON C.m_cliente_id=O.m_oferta_idCliente GROUP BY C.m_cliente_id ORDER BY cantidadOfertas DESC LIMIT 0,5";
+                          $queryTop=mysqli_query($link, $SQLTop);
+                          while($rowTop=mysqli_fetch_array($queryTop)){
+                          $m_cliente_razonSocial=$rowTop["m_cliente_razonSocial"];
+                          $m_cliente_mail=$rowTop["m_cliente_mail"];
+                          $cantidadOfertas=$rowTop["cantidadOfertas"];
+                          ?>
+
                           <li class="media event">
                             <a class="pull-left border-aero profile_thumb">
                               <i class="fa fa-user aero"></i>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#"><?=$m_cliente_razonSocial?></a>
+                              <p> <?=$m_cliente_mail?> </p>
+                              <p> <small><?=$cantidadOfertas?> Ofertas</small>
                               </p>
                             </div>
                           </li>
-                          <li class="media event">
-                            <a class="pull-left border-green profile_thumb">
-                              <i class="fa fa-user green"></i>
-                            </a>
-                            <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
-                              </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <a class="pull-left border-blue profile_thumb">
-                              <i class="fa fa-user blue"></i>
-                            </a>
-                            <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
-                              </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <a class="pull-left border-aero profile_thumb">
-                              <i class="fa fa-user aero"></i>
-                            </a>
-                            <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
-                              </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <a class="pull-left border-green profile_thumb">
-                              <i class="fa fa-user green"></i>
-                            </a>
-                            <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
-                              </p>
-                            </div>
-                          </li>
+                          
+                        <?php } ?>
+                   
+                         
                         </ul>
                       </div>
                     </div>
