@@ -24,6 +24,13 @@
               <div class="menu_section">
                 <h3>Menú</h3>
                 <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> inicio <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: block;">
+                      <li><a href="index2.php">Dashboard</a></li>
+
+                    </ul>
+                  </li>
+
                   <?php if (control_access("CLIENTES", 'VER')) { ?>
                 
                   <li><a><i class="fa fa-group"></i> Clientes <span class="fa fa-chevron-down"></span></a>
