@@ -12,6 +12,7 @@ $jsondata = array();
 if((isset($_POST["idOferta"]))&&($_POST["idOferta"]!="")){ $idOferta=strip_tags(mysqli_real_escape_string($link, $_POST["idOferta"])); } else {$aErrores[] = "Ninǵún ID indicado";}
 if((isset($_POST["tituloOferta"]))&&($_POST["tituloOferta"]!="")){ $tituloOferta=strip_tags(mysqli_real_escape_string($link, $_POST["tituloOferta"])); } else {$aErrores[] = "El titulo de la oferta no puede estar vacío";}
 if((isset($_POST["cantidadCupones"]))&&($_POST["cantidadCupones"]!="")){ $cantidadCupones=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["cantidadCupones"]))); } else {$aErrores[] = "Debe especificar la cantidad de cupones a ofertar";}
+if((isset($_POST["precioReal"]))&&($_POST["precioReal"]!="")){ $precioReal=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["precioReal"]))); } else {$aErrores[] = "Debe especificar el precio real del producto";}
 if((isset($_POST["categoriaOferta"]))&&($_POST["categoriaOferta"]!="")){ $idCategoriaOferta=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["categoriaOferta"]))); } else {$aErrores[] = "Debe especificar la categoría de la oferta";}
 if((isset($_POST["porcentajeAhorro"]))&&($_POST["porcentajeAhorro"]!="")){ $porcentajeAhorro=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["porcentajeAhorro"]))); } else {$aErrores[] = "Debe indicar el porcentaje de ahorro";}
 if((isset($_POST["valorCupon"]))&&($_POST["valorCupon"]!="")){ $valorCupon=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["valorCupon"]))); } else {$aErrores[] = "Debe indicar el valor del cupón";}
@@ -27,11 +28,12 @@ $fechacompleta=date('Y-m-d H:i:s');
 $validoDesde=date('Y-m-d H:i:s', strtotime($validoDesde));
 $validoHasta=date('Y-m-d H:i:s', strtotime($validoHasta));
 $valorCupon=str_replace("US$", "", $valorCupon);
+$precioReal=str_replace("US$", "", $precioReal);
 
 
 if(count($aErrores)==0) { 
 
-	$query = "UPDATE m_ofertas SET m_oferta_idCliente='$idCliente',  m_oferta_idCategoria='$idCategoriaOferta',  m_oferta_titulo='$tituloOferta', m_oferta_descripcion='$descripcion', m_oferta_cantidad= '$cantidadCupones', m_oferta_precioCupon='$valorCupon', m_oferta_porcentajeAhorro='$porcentajeAhorro', m_oferta_fechaInicio='$validoDesde', m_oferta_fechaFin='$validoHasta', m_oferta_estusActivado='$activo', m_oferta_estatusVerificado='$verificacion' WHERE m_oferta_id='$idOferta'";
+	$query = "UPDATE m_ofertas SET m_oferta_idCliente='$idCliente',  m_oferta_idCategoria='$idCategoriaOferta',  m_oferta_titulo='$tituloOferta', m_oferta_descripcion='$descripcion', m_oferta_cantidad= '$cantidadCupones', m_oferta_precioCupon='$valorCupon', m_oferta_porcentajeAhorro='$porcentajeAhorro', m_oferta_fechaInicio='$validoDesde', m_oferta_fechaFin='$validoHasta', m_oferta_estusActivado='$activo', m_oferta_estatusVerificado='$verificacion', m_oferta_precioReal='$precioReal' WHERE m_oferta_id='$idOferta'";
 	$resultado = mysqli_query($link, $query);
 	
 	if ($resultado) {

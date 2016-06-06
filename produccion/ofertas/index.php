@@ -97,10 +97,14 @@ $link=Conectarse();
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <span class="fa fa-subscript form-control-feedback left" aria-hidden="true"></span>
+                        <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
                         <input type="text" class="form-control has-feedback-left numeric" name="cantidadCupones" id="cantidadCupones" placeholder="Cantidad de Cupones Disponibles">
 
                       </div>
+
+
+
+
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <select name="clienteVendedor" class="select2_single cliente form-control has-feedback-right" tabindex="-1">
                           <option></option>
@@ -121,11 +125,15 @@ $link=Conectarse();
 
                         </div>
 
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <span class="fa fa-cc form-control-feedback left" aria-hidden="true"></span>
+                          <input type="text" class="form-control has-feedback-left numeric" name="precioReal" id="precioReal" placeholder="Precio real del producto">
 
+                        </div>
 
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <span class="fa fa-calculator form-control-feedback left" aria-hidden="true"></span>
+                          <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
                           <input type="text" class="form-control has-feedback-left" name="porcentajeAhorro" id="porcentajeAhorro" placeholder="Porcentaje del Ahorro (Sin el %)">
 
                         </div>
@@ -405,6 +413,7 @@ $(document).ready(function() {
 <!--CAMPO DE PRECIOS-->
 <script type="text/javascript">
 $('#valorCupon').priceFormat();
+$('#precioReal').priceFormat();
 </script>
 <!--/CAMPO PRECIOS-->
 
@@ -451,6 +460,7 @@ $(function() {
       cantidadCupones: "required",
       categoriaOferta: "required",
       porcentajeAhorro: "required",
+      precioReal: "required",
       valorCupon: "required",
       validoDesde: "required",
       validoHasta: "required",
@@ -475,6 +485,7 @@ $(function() {
         extension: "Extensión de archivo no permitida",
       },
       clienteVendedor: "Debe indicar a que cliente pertenece esta oferta",
+      precioReal: "Debe especificar el precio real del producto",
       valorCupon: "Debe indicar el precio de esta oferta"
 
     },

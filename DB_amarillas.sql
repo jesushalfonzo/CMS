@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-06-2016 a las 15:45:55
+-- Tiempo de generación: 06-06-2016 a las 11:10:19
 -- Versión del servidor: 5.5.49-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.16
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bitacora_acceso` (
   `b_acceso_ip` varchar(200) NOT NULL,
   `b_acceso_fecha` datetime NOT NULL,
   PRIMARY KEY (`b_acceso_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=108 ;
 
 --
 -- Volcado de datos para la tabla `bitacora_acceso`
@@ -136,7 +136,17 @@ INSERT INTO `bitacora_acceso` (`b_acceso_id`, `b_acceso_usuario`, `b_acceso_acci
 (94, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-02 08:50:59'),
 (95, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-02 15:15:42'),
 (96, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-03 08:47:07'),
-(97, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-03 13:52:29');
+(97, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-03 13:52:29'),
+(98, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-03 16:38:22'),
+(99, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-05 10:35:51'),
+(100, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-05 12:56:42'),
+(101, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-05 12:57:25'),
+(102, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 09:04:18'),
+(103, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 10:36:01'),
+(104, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 10:36:41'),
+(105, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 10:41:09'),
+(106, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 10:42:24'),
+(107, 'jalfonzo', 'ACCESO PERMITIDO', '127.0.0.1', '2016-06-06 11:10:01');
 
 -- --------------------------------------------------------
 
@@ -234,14 +244,15 @@ CREATE TABLE IF NOT EXISTS `m_grupo` (
   `m_grupo_descripcion` varchar(255) NOT NULL,
   `m_grupo_status` varchar(3) NOT NULL,
   PRIMARY KEY (`m_grupo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `m_grupo`
 --
 
 INSERT INTO `m_grupo` (`m_grupo_id`, `m_grupo_nombre`, `m_grupo_descripcion`, `m_grupo_status`) VALUES
-(1, 'Super Admin', 'El super administrador del sistema, para privilegios de administración de modulos', 'A');
+(1, 'Super Admin', 'El super administrador del sistema, para privilegios de administraci&oacute;n de modulos', 'A'),
+(3, 'Editor', 'Puede aprobar ventas, crear categor&iacute;as, subir ofertas ', 'A');
 
 -- --------------------------------------------------------
 
@@ -256,6 +267,7 @@ CREATE TABLE IF NOT EXISTS `m_ofertas` (
   `m_oferta_titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `m_oferta_descripcion` text COLLATE utf8_unicode_ci NOT NULL,
   `m_oferta_cantidad` int(11) NOT NULL,
+  `m_oferta_precioReal` decimal(10,2) NOT NULL,
   `m_oferta_precioCupon` decimal(10,2) NOT NULL,
   `m_oferta_porcentajeAhorro` decimal(10,2) NOT NULL,
   `m_oferta_fecha` datetime NOT NULL,
@@ -266,15 +278,15 @@ CREATE TABLE IF NOT EXISTS `m_ofertas` (
   PRIMARY KEY (`m_oferta_id`),
   KEY `iddelclientevendedor` (`m_oferta_idCliente`),
   KEY `idcategoria` (`m_oferta_idCategoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `m_ofertas`
 --
 
-INSERT INTO `m_ofertas` (`m_oferta_id`, `m_oferta_idCliente`, `m_oferta_idCategoria`, `m_oferta_titulo`, `m_oferta_descripcion`, `m_oferta_cantidad`, `m_oferta_precioCupon`, `m_oferta_porcentajeAhorro`, `m_oferta_fecha`, `m_oferta_fechaInicio`, `m_oferta_fechaFin`, `m_oferta_estusActivado`, `m_oferta_estatusVerificado`) VALUES
-(6, 7, 3, '1 noche romÃ¡ntica en GalipÃ¡n en Posada Miradas Virolas', '\r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            <h1 style="margin-top: 0px; margin-bottom: 0px; font-size: 28px; font-family: AlegreyaSans, sans-serif, serif; color: rgb(78, 78, 78); padding: 0px;">Detalles del Paquetexxxx de Clavoxx</h1><ul style="margin-bottom: 10px; color: rgb(51, 51, 51); font-family: AlegreyaSans, serif, sans-serif; font-size: 14px; line-height: 20px;"><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><span style="font-weight: 700;">Puede ser canjeado hasta el 15 de julio de 2016</span></li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);">Galipan, Posada Miradas: Noche romÃ¡ntica con desayuno para dos personas</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);">Maravillosa vista al Picacho de GalipÃ¡n y al mar de la Guaira</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><em></em>Acogedor lugar decorado con un limpio aire fresco. RomÃ¡nticas habitaciones con espectacular vista</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><em></em>Equipadas con cÃ³modas camas matrimoniales, TV, agua caliente y cable</li></ul>\r\n\r\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ', 12, 120.00, 85.00, '2016-06-02 12:28:25', '2016-06-03 18:00:00', '2016-06-28 13:49:00', 1, 1),
-(7, 7, 3, 'Temporada Baja en Acarigua Sin Agua ni Luz', '\r\n                            \r\n                            <b><font face="Arial Black" size="5">Pongo Cualquier Vaina</font></b><div><b><font face="Arial Black" size="5"><br></font></b></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b>Usted paga los tragos que el hielo tambiÃ©n se lo cobramos.</b></span></font></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b><br></b></span></font></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b>Traiga sus sabanas y su plagatox</b></span></font></div>                                                        ', 23, 10.00, 99.00, '2016-06-02 12:36:41', '2016-06-02 01:00:00', '2016-06-23 01:00:00', 1, 1);
+INSERT INTO `m_ofertas` (`m_oferta_id`, `m_oferta_idCliente`, `m_oferta_idCategoria`, `m_oferta_titulo`, `m_oferta_descripcion`, `m_oferta_cantidad`, `m_oferta_precioReal`, `m_oferta_precioCupon`, `m_oferta_porcentajeAhorro`, `m_oferta_fecha`, `m_oferta_fechaInicio`, `m_oferta_fechaFin`, `m_oferta_estusActivado`, `m_oferta_estatusVerificado`) VALUES
+(6, 7, 3, '1 noche romÃ¡ntica en GalipÃ¡n en Posada Miradas Virolas', '\r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            \r\n                            <h1 style="margin-top: 0px; margin-bottom: 0px; font-size: 28px; font-family: AlegreyaSans, sans-serif, serif; color: rgb(78, 78, 78); padding: 0px;">Detalles del Paquetexxxx de Clavoxx</h1><ul style="margin-bottom: 10px; color: rgb(51, 51, 51); font-family: AlegreyaSans, serif, sans-serif; font-size: 14px; line-height: 20px;"><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><span style="font-weight: 700;">Puede ser canjeado hasta el 15 de julio de 2016</span></li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);">Galipan, Posada Miradas: Noche romÃ¡ntica con desayuno para dos personas</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);">Maravillosa vista al Picacho de GalipÃ¡n y al mar de la Guaira</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><em></em>Acogedor lugar decorado con un limpio aire fresco. RomÃ¡nticas habitaciones con espectacular vista</li><li style="font-family: AlegreyaSans-Light, sans-serif, serif; font-size: 16px; text-align: justify; color: rgb(78, 78, 78); margin: 0px; padding: 10px 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153);"><em></em>Equipadas con cÃ³modas camas matrimoniales, TV, agua caliente y cable</li></ul>\r\n\r\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ', 12, 250.00, 120.00, 85.00, '2016-06-02 12:28:25', '2016-06-03 18:00:00', '2016-06-28 13:49:00', 1, 1),
+(7, 7, 3, 'Temporada Baja en Acarigua Sin Agua ni Luz', '\r\n                            \r\n                            <b><font face="Arial Black" size="5">Pongo Cualquier Vaina</font></b><div><b><font face="Arial Black" size="5"><br></font></b></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b>Usted paga los tragos que el hielo tambiÃ©n se lo cobramos.</b></span></font></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b><br></b></span></font></div><div><font face="Arial Black" size="5"><span style="line-height: 35.304px;"><b>Traiga sus sabanas y su plagatox</b></span></font></div>                                                        ', 23, 0.00, 10.00, 99.00, '2016-06-02 12:36:41', '2016-06-02 01:00:00', '2016-06-23 01:00:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -292,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `m_permiso` (
   KEY `grupoid` (`m_grupo_id`),
   KEY `accionid` (`m_accion_id`),
   KEY `seccionid` (`m_seccion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Volcado de datos para la tabla `m_permiso`
@@ -311,7 +323,11 @@ INSERT INTO `m_permiso` (`m_permiso_id`, `m_grupo_id`, `m_seccion_id`, `m_accion
 (10, 1, 4, 1, 'SI'),
 (11, 1, 4, 2, 'SI'),
 (12, 1, 4, 3, 'SI'),
-(13, 1, 4, 4, 'SI');
+(13, 1, 4, 4, 'SI'),
+(14, 1, 5, 1, 'SI'),
+(15, 1, 5, 2, 'SI'),
+(16, 1, 5, 3, 'SI'),
+(17, 1, 5, 4, 'SI');
 
 -- --------------------------------------------------------
 
@@ -324,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `m_seccion` (
   `m_seccion_nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `m_seccion_descripcion` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`m_seccion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `m_seccion`
@@ -334,7 +350,8 @@ INSERT INTO `m_seccion` (`m_seccion_id`, `m_seccion_nombre`, `m_seccion_descripc
 (1, 'Clientes', 'Para la gestión y registro de clientes'),
 (2, 'Categorias', 'Para ingresar las categorías en las que se puede publicar'),
 (3, 'Ventas', 'Para los reportes de ventas '),
-(4, 'Ofertas', 'Para las ofertas de ventas');
+(4, 'Ofertas', 'Para las ofertas de ventas'),
+(5, 'Administracion', 'Para cambios de claves');
 
 -- --------------------------------------------------------
 
@@ -353,14 +370,15 @@ CREATE TABLE IF NOT EXISTS `m_usuario` (
   `m_usuario_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`m_usuario_id`),
   KEY `idgrupo` (`m_grupo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `m_usuario`
 --
 
 INSERT INTO `m_usuario` (`m_usuario_id`, `m_usuario_login`, `m_usuario_password`, `m_usuario_nombre`, `m_usuario_apellido`, `m_grupo_id`, `m_usuario_status`, `m_usuario_correo`) VALUES
-(1, 'jalfonzo', 'a35400f5d75488e299037db1895d2ee8', 'Jesús', 'Alfonzo', 1, 'A', 'jesushalfonzo@gmail.com');
+(1, 'jalfonzo', 'a35400f5d75488e299037db1895d2ee8', 'Jes&uacute;s', 'Alfonzo', 1, 'A', 'jesushalfonzo@gmail.com'),
+(2, 'mlopez', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'Milagro', 'L&oacute;pez', 1, 'A', 'milagrotle@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -416,6 +434,45 @@ INSERT INTO `r_medias` (`r_media_id`, `r_media_idOferta`, `r_media_path`) VALUES
 (13, 0, '4d0db16302b4c7dc47e5ac879caffe67.png'),
 (14, 6, 'e49628c758ecbfd112d99c5f07bae19d.png'),
 (15, 6, '8faf059736b098ee5940b8375e424f20.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `r_seccion_accion`
+--
+
+CREATE TABLE IF NOT EXISTS `r_seccion_accion` (
+  `r_seccion_accion_id` int(4) NOT NULL AUTO_INCREMENT,
+  `m_seccion_id` int(4) NOT NULL,
+  `m_accion_id` int(4) NOT NULL,
+  PRIMARY KEY (`r_seccion_accion_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+
+--
+-- Volcado de datos para la tabla `r_seccion_accion`
+--
+
+INSERT INTO `r_seccion_accion` (`r_seccion_accion_id`, `m_seccion_id`, `m_accion_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 2, 1),
+(6, 2, 2),
+(7, 2, 3),
+(8, 2, 4),
+(9, 3, 1),
+(10, 3, 2),
+(11, 3, 3),
+(12, 3, 4),
+(13, 4, 1),
+(14, 4, 2),
+(15, 4, 3),
+(16, 4, 4),
+(17, 5, 1),
+(18, 5, 2),
+(19, 5, 3),
+(20, 5, 4);
 
 --
 -- Restricciones para tablas volcadas

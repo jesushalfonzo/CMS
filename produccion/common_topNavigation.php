@@ -12,18 +12,8 @@
             <img src="<?=$serveractual?>/produccion/images/user.png" alt=""><?=$nombre_completo?>
             <span class=" fa fa-angle-down"></span>
           </a>
-          <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><a href="javascript:;">  Profile</a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <span class="badge bg-red pull-right">50%</span>
-                <span>Settings</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">Help</a>
-            </li>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">        
+           
             <li><a href="<?=$serveractual?>/produccion/cerrar.php"><i class="fa fa-sign-out pull-right"></i> Cerrar sesión</a>
             </li>
           </ul>

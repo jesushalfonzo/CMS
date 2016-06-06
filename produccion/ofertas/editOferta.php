@@ -20,6 +20,7 @@ while ($row=mysqli_fetch_array($query)) {
   $m_oferta_fechaFin=date("m/d/Y h:i A", strtotime($row["m_oferta_fechaFin"]));
   $m_oferta_estusActivado=$row["m_oferta_estusActivado"];
   $m_oferta_estatusVerificado=$row["m_oferta_estatusVerificado"];
+  $m_oferta_precioReal=$row["m_oferta_precioReal"];
 }
 
 
@@ -143,7 +144,12 @@ while ($row=mysqli_fetch_array($query)) {
 
                         </div>
 
+                        
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <span class="fa fa-cc form-control-feedback left" aria-hidden="true"></span>
+                          <input type="text" class="form-control has-feedback-left numeric" name="precioReal" id="precioReal" placeholder="Precio real del producto" value="<?=$m_oferta_precioReal?>">
 
+                        </div>
 
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -456,6 +462,9 @@ $(document).ready(function() {
 <!--CAMPO DE PRECIOS-->
 <script type="text/javascript">
 $('#valorCupon').priceFormat();
+$('#precioReal').priceFormat();
+
+
 </script>
 <!--/CAMPO PRECIOS-->
 

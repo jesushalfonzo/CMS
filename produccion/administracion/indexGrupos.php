@@ -93,7 +93,12 @@ if (!control_access("ADMINISTRACION", 'VER')) {  echo "<script language='JavaScr
                         </td>
              
                         <td>
-                          <button type="button" class="btn btn-success btn-xs">2</button>
+                          <?php
+                          $SQLCantidad="SELECT m_usuario_id FROM m_usuario WHERE m_grupo_id='$m_grupo_id'";
+                          $queryCantidad=mysqli_query($link, $SQLCantidad);
+                          $cantidadUsuariosPorGrupo=mysqli_num_rows($queryCantidad);
+                          ?>
+                          <button type="button" class="btn btn-success btn-xs"><?=$cantidadUsuariosPorGrupo?></button>
                         </td>
                         <td>
                           <a href="#" class="btn btn-info btn-xs editando" data-id="<?=$m_grupo_id?>"><i class="fa fa-pencil"></i> Editar </a>

@@ -2,7 +2,7 @@
 include('../extras/conexion.php');
 $link=Conectarse();
 
-if (!control_access("CLIENTES", 'AGREGAR')) { $aErrores[] = "USTED NO TIENE PERSIMO PARA REALIZAR ESTA ACCION";  echo "<script language='JavaScript'>document.location.href='../index.php';</script>"; }
+if (!control_access("CLIENTES", 'AGREGAR')) { $aErrores[] = "USTED NO TIENE PERSIMO PARA REALIZAR ESTA ACCION";}
 
 
 header('Content-type: application/json; charset=utf-8');

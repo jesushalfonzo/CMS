@@ -10,7 +10,6 @@ if((isset($_GET["idCliente"]))&&($_GET["idCliente"]!="")){ $idCliente=strip_tags
 
 if (!control_access("CLIENTES", 'ELIMINAR')) { 
 	$aErrores[]="USTED NO TIENE PERMISOS PARA REALIZAR ESTA ACCIÓN"; 
-	echo "<script language='JavaScript'>document.location.href='../index.php';</script>";
 }
 
 

@@ -12,6 +12,7 @@ $jsondata = array();
 if((isset($_POST["tituloOferta"]))&&($_POST["tituloOferta"]!="")){ $tituloOferta=strip_tags(mysqli_real_escape_string($link, $_POST["tituloOferta"])); } else {$aErrores[] = "El titulo de la oferta no puede estar vacío";}
 if((isset($_POST["cantidadCupones"]))&&($_POST["cantidadCupones"]!="")){ $cantidadCupones=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["cantidadCupones"]))); } else {$aErrores[] = "Debe especificar la cantidad de cupones a ofertar";}
 if((isset($_POST["categoriaOferta"]))&&($_POST["categoriaOferta"]!="")){ $categoriaOferta=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["categoriaOferta"]))); } else {$aErrores[] = "Debe especificar la categoría de la oferta";}
+if((isset($_POST["precioReal"]))&&($_POST["precioReal"]!="")){ $precioReal=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["precioReal"]))); } else {$aErrores[] = "Debe especificar el precio real del producto";}
 if((isset($_POST["porcentajeAhorro"]))&&($_POST["porcentajeAhorro"]!="")){ $porcentajeAhorro=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["porcentajeAhorro"]))); } else {$aErrores[] = "Debe indicar el porcentaje de ahorro";}
 if((isset($_POST["valorCupon"]))&&($_POST["valorCupon"]!="")){ $valorCupon=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["valorCupon"]))); } else {$aErrores[] = "Debe indicar el valor del cupón";}
 if((isset($_POST["validoDesde"]))&&($_POST["validoDesde"]!="")){ $validoDesde=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["validoDesde"]))); } else {$aErrores[] = "Debe indicar desde que fecha es válida la oferta";}
@@ -27,11 +28,12 @@ $fechacompleta=date('Y-m-d H:i:s');
 $validoDesde=date('Y-m-d H:i:s', strtotime($validoDesde));
 $validoHasta=date('Y-m-d H:i:s', strtotime($validoHasta));
 $valorCupon=str_replace("US$", "", $valorCupon);
+$precioReal=str_replace("US$", "", $precioReal);
 
 
 if(count($aErrores)==0) { 
 
-	$query = "INSERT INTO m_ofertas (m_oferta_id, m_oferta_idCliente, m_oferta_idCategoria, m_oferta_titulo, m_oferta_descripcion, m_oferta_cantidad, m_oferta_precioCupon, m_oferta_porcentajeAhorro, m_oferta_fecha, m_oferta_fechaInicio, m_oferta_fechaFin, m_oferta_estusActivado, m_oferta_estatusVerificado) VALUES (Null, '$idCliente', '$categoriaOferta', '$tituloOferta', '$descripcion', '$cantidadCupones', '$valorCupon', '$porcentajeAhorro', '$fechacompleta', '$validoDesde', '$validoHasta', '$activo', '$verificacion')";
+	$query = "INSERT INTO m_ofertas (m_oferta_id, m_oferta_idCliente, m_oferta_idCategoria, m_oferta_titulo, m_oferta_descripcion, m_oferta_cantidad, m_oferta_precioCupon, m_oferta_porcentajeAhorro, m_oferta_fecha, m_oferta_fechaInicio, m_oferta_fechaFin, m_oferta_estusActivado, m_oferta_estatusVerificado, m_oferta_precioReal) VALUES (Null, '$idCliente', '$categoriaOferta', '$tituloOferta', '$descripcion', '$cantidadCupones', '$valorCupon', '$porcentajeAhorro', '$fechacompleta', '$validoDesde', '$validoHasta', '$activo', '$verificacion', '$precioReal')";
 	$resultado = mysqli_query($link, $query);
 	$lasid=mysqli_insert_id($link);
 

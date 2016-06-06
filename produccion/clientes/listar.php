@@ -135,7 +135,7 @@ if (!control_access("CLIENTES", 'VER')) {  echo "<script language='JavaScript'>d
                                 <i class="fa fa-user"> </i> Ver Perfil
                               </button>
                               <?php } ?>
-                              <?php if (control_access("CLIENTES", 'VER')) { ?> 
+                              <?php if (control_access("CLIENTES", 'ELIMINAR')) { ?> 
                               <button type="button" class="btn btn-danger btn-xs" data-id="<?=$m_cliente_id?>" data-title="Seguro que desea eliminar?" data-trigger="focus" data-on-confirm="deleteCliente" data-toggle="confirmation" data-btn-ok-label="Sí" data-btn-cancel-label="Cancelar!" data-placement="top"> 
                                 <i class="fa fa-trash-o"> </i> Borrar </button>
                                 <?php } ?>
