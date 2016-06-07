@@ -17,6 +17,7 @@ $m_categoria_nombre=$row["m_categoria_nombre"];
 $m_categoria_descripcion=$row["m_categoria_descripcion"];
 $m_categoria_estatus=$row["m_categoria_estatus"];
 $m_categoria_icono=$row["m_categoria_icono"];
+$m_categorias_iconoCambio=$row["m_categorias_iconoCambio"];
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +104,14 @@ $m_categoria_icono=$row["m_categoria_icono"];
 
                     </div>
                   </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label for="message">Ícono Cambio de estado : <img src="../../../multimedia/iconos/<?=$m_categorias_iconoCambio?>" style="background-color:#5F5F5F; width: 25%; height: 25%"></label>
+                    <div class="radio" id="EstatusRadio">
 
+                      <input id="fileIconoChange" name="fileIconoChange" class="file" type="file" />
+
+                    </div>
+                  </div>
 
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <label for="message">Estatus Categoría :</label>
@@ -192,8 +200,11 @@ $(function() {
 
      var formData = new FormData($("#formCategoria")[0]);
      var file = $('#fileIcono').get(0).files[0];
-     console.log(file);
      formData.append('file', file);
+
+     var file = $('#fileIconoChange').get(0).files[0];
+     formData.append('fileChange', file);
+
      $.ajax({
       url: "updateCategory.php",
       type: 'POST',

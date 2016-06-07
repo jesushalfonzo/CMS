@@ -14,6 +14,7 @@ if((isset($_POST["descripcionCat"]))&&($_POST["descripcionCat"]!="")){ $descripc
 if((isset($_POST["estatus"]))&&($_POST["estatus"]!="")){ $activo=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["estatus"]))); }  else {$activo=0;}
 if((isset($_POST["idCategory"]))&&($_POST["idCategory"]!="")){ $idCategory=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["idCategory"]))); } else {$aErrores[] = "NO SE HA ESPECIFICADO UN ID";}
 if((isset($_FILES["file"]))&&($_FILES["file"]!="")){ $iconoFile = $_FILES['file']['name']; $chageImage=true; }  else {$chageImage=false;}
+if((isset($_FILES["fileChange"]))&&($_FILES["fileChange"]!="")){ $fileChange = $_FILES['fileChange']['name']; $chageImageRoll=true; }  else { $chageImageRoll=false; }
 
 
 
@@ -43,6 +44,27 @@ if (isset($_FILES["file"]) and ($chageImage)) {
 
 } 
 
+
+if (isset($_FILES["fileChange"]) and ($chageImage)) {
+	
+    // CHEQUENADO LOS MIME TYPE PERMITIDOS
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	if (false === $ext = array_search(
+		$finfo->file($_FILES['fileChange']['tmp_name']),
+		array(
+			'png' => 'image/png',
+			'jpe' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'jpg' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'ico' => 'image/vnd.microsoft.icon',
+			),
+		true
+		)) {
+		$aErrores[] = "Formato de imagen NO Permitido";
+}
+
+} 
 
 
 
@@ -75,6 +97,28 @@ if(count($aErrores)==0) {
 			rename($carpeta.$nombre_temporal, $carpeta.$nombre_new); 
 			chmod($carpeta.$nombre_new, 0644);
 			$actualizar="UPDATE m_categorias SET  m_categoria_icono='$nombre_new' WHERE m_categoria_id='$idCategory'"; 
+			$resultado=mysqli_query($link,$actualizar); 
+		}
+
+		//SUBO LA IMAGEN CON EL ICONO ROLLOVER
+		
+		if ($fileChange!='')
+		{
+			$trozos = explode(".", $fileChange); 
+			$extension = end($trozos); 
+			$carpeta = '../../../multimedia/iconos/';
+			$nombre_new = 'ICONORollE'.'_'.$idCategory.'._'.rand().$extension;
+			$nombre_temporal = 'temporal.jpg';
+
+			if (move_uploaded_file($_FILES['fileChange']['tmp_name'],$carpeta.$nombre_temporal)){
+				$subiofoto=true;
+			}else{
+				$subiofoto=false;
+			}
+
+			rename($carpeta.$nombre_temporal, $carpeta.$nombre_new); 
+			chmod($carpeta.$nombre_new, 0644);
+			$actualizar="UPDATE m_categorias SET  m_categorias_iconoCambio='$nombre_new' WHERE m_categoria_id='$idCategory'"; 
 			$resultado=mysqli_query($link,$actualizar); 
 		}
 

@@ -16,26 +16,48 @@ if((isset($_POST["nombreCat"]))&&($_POST["nombreCat"]!="")){ $nombreCat=strip_ta
 if((isset($_POST["descripcionCat"]))&&($_POST["descripcionCat"]!="")){ $descripcionCat=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["descripcionCat"]))); } else {$aErrores[] = "Debe especificar la descripciónd de la categoría";}
 if((isset($_POST["estatus"]))&&($_POST["estatus"]!="")){ $activo=strip_tags(htmlentities(mysqli_real_escape_string($link, $_POST["estatus"]))); }  else {$activo=0;}
 if((isset($_FILES["file"]))&&($_FILES["file"]!="")){ $iconoFile = $_FILES['file']['name']; }  else {$aErrores[] = "Debe Seleccionar una imagen";}
+if((isset($_FILES["fileChange"]))&&($_FILES["fileChange"]!="")){ $fileChange = $_FILES['fileChange']['name']; }  else {$aErrores[] = "Debe Seleccionar una imagen";}
 
 $fechacompleta=date('Y-m-d H:i:s');
 
 if (isset($_FILES["file"])) {
 	
     // CHEQUENADO LOS MIME TYPE PERMITIDOS
-$finfo = new finfo(FILEINFO_MIME_TYPE);
-if (false === $ext = array_search(
-	$finfo->file($_FILES['file']['tmp_name']),
-	array(
-		    'png' => 'image/png',
-            'jpe' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'ico' => 'image/vnd.microsoft.icon',
-		),
-	true
-	)) {
-	$aErrores[] = "Formato de imagen NO Permitido";
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	if (false === $ext = array_search(
+		$finfo->file($_FILES['file']['tmp_name']),
+		array(
+			'png' => 'image/png',
+			'jpe' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'jpg' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'ico' => 'image/vnd.microsoft.icon',
+			),
+		true
+		)) {
+		$aErrores[] = "Formato de imagen NO Permitido";
+}
+
+} 
+
+if (isset($_FILES["file"])) {
+	
+    // CHEQUENADO LOS MIME TYPE PERMITIDOS
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	if (false === $ext = array_search(
+		$finfo->file($_FILES['fileChange']['tmp_name']),
+		array(
+			'png' => 'image/png',
+			'jpe' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'jpg' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'ico' => 'image/vnd.microsoft.icon',
+			),
+		true
+		)) {
+		$aErrores[] = "Formato de imagen NO Permitido";
 }
 
 } 
@@ -75,6 +97,30 @@ if(count($aErrores)==0) {
 			$resultado=mysqli_query($link,$actualizar); 
 		}
 
+		//SUBO LA DEL ROLLOVER
+		if ($fileChange!='')
+		{
+			$trozos = explode(".", $fileChange); 
+			$extension = end($trozos); 
+
+
+
+
+			$carpeta = '../../../multimedia/iconos/';
+			$nombre_new = 'ICONOROLL'.'_'.$lastshit.'.'.$extension;
+			$nombre_temporal = 'temporal.jpg';
+
+			if (move_uploaded_file($_FILES['fileChange']['tmp_name'],$carpeta.$nombre_temporal)){
+				$subiofoto=true;
+			}else{
+				$subiofoto=false;
+			}
+
+			rename($carpeta.$nombre_temporal, $carpeta.$nombre_new); 
+			chmod($carpeta.$nombre_new, 0644);
+			$actualizar="UPDATE m_categorias SET  m_categorias_iconoCambio='$nombre_new' WHERE m_categoria_id='$lastshit'"; 
+			$resultado=mysqli_query($link,$actualizar); 
+		}
 
 
 

@@ -1,6 +1,6 @@
  <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?=$serveractual?>/produccion/index2.php" class="site_title"><i class="fa fa-paw"></i> <span>OfertasAmarillas</span></a>
+              <a href="<?=$serveractual?>/produccion/index2.php" class="site_title"><img src="<?=$serveractual?>/produccion/images/logoVertical.png" style="height:90%; width:90%;"></a>
             </div>
 
             <div class="clearfix"></div>
@@ -8,7 +8,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="<?=$serveractual?>/produccion/images/user.png" alt="..." class="img-circle profile_img">
+                <img src="<?=$serveractual?>/produccion/images/logoOferta.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>

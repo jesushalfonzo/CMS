@@ -117,7 +117,7 @@ if ($error!=""){ $display="block"; } else { $display="none";}
 
         <div class="clear"> </div>
         <div class="submit">
-          <input type="submit" value="Entrar" >
+          <input type="submit"  value="Entrar" >
           <h4><a href="#">Olvidaste tú contraseña ?</a></h4>
           <div class="clear">  </div> 
         </div>

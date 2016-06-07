@@ -91,6 +91,14 @@ $link=Conectarse();
 
                     </div>
                   </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label for="message">Ícono Cambio de estado :</label>
+                    <div class="radio" id="EstatusRadio">
+                      <input id="fileIconoChange" name="fileIconoChange" class="file" type="file" />
+
+                    </div>
+                  </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <label for="message">Estatus Categoría :</label>
                     <div class="radio" id="EstatusRadio">
@@ -170,6 +178,10 @@ $(function() {
       fileIcono: {
         required: true,
         accept: "image/jpeg, image/pjpeg, image/png, image/gif"
+      },
+      fileIconoChange: {
+        required: true,
+        accept: "image/jpeg, image/pjpeg, image/png, image/gif"
       }
     },
 
@@ -180,15 +192,19 @@ $(function() {
         required: "Debe seleccionar un ícono",
         accept: "Solo se permiten imagenes JGP, GIF Y PNG",
       },
+      fileIconoChange: {
+        required: "Debe seleccionar un ícono para el cambio de estado del botón",
+        accept: "Solo se permiten imagenes JGP, GIF Y PNG",
+      },
     },
 
     submitHandler: function(form) {
 
      var formData = new FormData($("#formCategoria")[0]);
      var file = $('#fileIcono').get(0).files[0];
-     console.log(file);
      formData.append('file', file);
-
+      var file = $('#fileIconoChange').get(0).files[0];
+     formData.append('fileChange', file);
 
 
      $.ajax({
@@ -218,12 +234,12 @@ $(function() {
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-      } ,
-   cache: false,
-   contentType: false,
-   processData: false
- });
+      alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    } ,
+    cache: false,
+    contentType: false,
+    processData: false
+  });
 
 }
 });
